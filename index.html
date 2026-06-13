@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cittadinanza Digitale — Scuola Sacra Famiglia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
+<style>
+:root{
+  --verde:#1f7a4d; --verde-scuro:#0f5c3a; --verde-chiaro:#e6f4ec;
+  --blu:#0066cc; --blu-scuro:#003d80; --blu-chiaro:#e7f0fb;
+  --giallo:#ffb703; --rosso:#c8102e; --grigio:#5b6b66;
+  --bg:#f4f8f6; --card:#ffffff; --bordo:#d6e3dc; --testo:#1c2b25;
+  --ombra:0 4px 18px rgba(15,92,58,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Atkinson Hyperlegible',system-ui,Arial,sans-serif;
+  background:var(--bg); color:var(--testo); line-height:1.7; font-size:18px;
+  display:flex; min-height:100vh;
+}
+/* ---------- SIDEBAR ---------- */
+.sidebar{
+  width:280px; min-width:280px; background:linear-gradient(180deg,var(--verde-scuro),var(--verde));
+  color:#fff; position:sticky; top:0; height:100vh; overflow-y:auto;
+  display:flex; flex-direction:column; box-shadow:4px 0 20px rgba(0,0,0,.12); z-index:20;
+}
+.sb-logo{padding:22px 18px 14px; text-align:center; border-bottom:1px solid rgba(255,255,255,.18)}
+.sb-logo img{width:104px; height:104px; border-radius:50%; background:#fff; padding:6px; box-shadow:0 4px 12px rgba(0,0,0,.25)}
+.sb-logo .t1{font-weight:700; font-size:1.05rem; margin-top:10px; line-height:1.3}
+.sb-logo .t2{font-size:.82rem; opacity:.9; margin-top:2px}
+.nav{padding:12px 10px; flex:1}
+.nav a{
+  display:flex; align-items:center; gap:12px; color:#eafaf1; text-decoration:none;
+  padding:12px 14px; border-radius:12px; font-weight:700; font-size:1rem; margin-bottom:4px;
+  transition:background .15s, transform .1s;
+}
+.nav a .ico{font-size:1.3rem; width:26px; text-align:center}
+.nav a:hover{background:rgba(255,255,255,.14)}
+.nav a.attiva{background:#fff; color:var(--verde-scuro); box-shadow:0 4px 10px rgba(0,0,0,.18)}
+.nav .num{margin-left:auto; font-size:.78rem; opacity:.6; font-weight:400}
+.sb-foot{padding:14px 16px; font-size:.74rem; opacity:.85; border-top:1px solid rgba(255,255,255,.18); line-height:1.5}
+/* ---------- MAIN ---------- */
+.main{flex:1; min-width:0}
+.wrap{max-width:1000px; margin:0 auto; padding:36px 40px 80px}
+.page{display:none; animation:fade .35s ease}
+.page.attiva{display:block}
+@keyframes fade{from{opacity:0; transform:translateY(10px)}to{opacity:1; transform:none}}
+h1{font-size:2.1rem; color:var(--verde-scuro); line-height:1.2; margin-bottom:6px}
+h2{font-size:1.5rem; color:var(--verde-scuro); margin:34px 0 12px; padding-bottom:6px; border-bottom:3px solid var(--verde-chiaro)}
+h3{font-size:1.2rem; color:var(--blu-scuro); margin:20px 0 8px}
+p{margin-bottom:14px}
+.lead{font-size:1.2rem; color:var(--grigio); margin-bottom:18px}
+.eyebrow{display:inline-block; background:var(--verde-chiaro); color:var(--verde-scuro);
+  font-weight:700; font-size:.85rem; padding:5px 14px; border-radius:999px; margin-bottom:14px; letter-spacing:.4px}
+img.hero{width:100%; border-radius:18px; box-shadow:var(--ombra); margin:8px 0 22px; display:block}
+img.media{width:100%; border-radius:14px; box-shadow:var(--ombra); margin:14px 0}
+figure{margin:18px 0}
+figcaption{font-size:.9rem; color:var(--grigio); text-align:center; margin-top:6px; font-style:italic}
+.card{background:var(--card); border:1px solid var(--bordo); border-radius:16px; padding:22px 24px; box-shadow:var(--ombra); margin:18px 0}
+.grid2{display:grid; grid-template-columns:1fr 1fr; gap:18px}
+.grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+@media(max-width:820px){.grid2,.grid3{grid-template-columns:1fr}}
+/* keyword */
+.kw{color:var(--blu); cursor:pointer; border-bottom:2px dotted var(--blu); font-weight:700; transition:background .12s}
+.kw:hover{background:var(--blu-chiaro); border-radius:4px}
+.kw::after{content:"ⓘ"; font-size:.7em; vertical-align:super; margin-left:1px; opacity:.6}
+/* box */
+.box{border-radius:14px; padding:16px 20px; margin:16px 0; border-left:6px solid}
+.box .titolo{font-weight:700; font-size:1.05rem; margin-bottom:4px; display:flex; gap:8px; align-items:center}
+.box.info{background:var(--blu-chiaro); border-color:var(--blu)}
+.box.ok{background:#e7f7ec; border-color:var(--verde)}
+.box.warn{background:#fff4e0; border-color:var(--giallo)}
+.box.bad{background:#fdeaed; border-color:var(--rosso)}
+/* pillole / tag dati */
+.tags{display:flex; flex-wrap:wrap; gap:10px; margin:12px 0}
+.tag{background:var(--verde-chiaro); color:var(--verde-scuro); border:1px solid var(--verde);
+  padding:7px 14px; border-radius:999px; font-weight:700; font-size:.95rem}
+.tag.blu{background:var(--blu-chiaro); color:var(--blu-scuro); border-color:var(--blu)}
+/* bottoni */
+.btn{display:inline-flex; align-items:center; gap:8px; background:var(--verde); color:#fff; border:none;
+  padding:13px 26px; border-radius:12px; font-family:inherit; font-weight:700; font-size:1.05rem;
+  cursor:pointer; box-shadow:0 4px 12px rgba(31,122,77,.3); transition:transform .1s, filter .15s}
+.btn:hover{filter:brightness(1.07); transform:translateY(-1px)}
+.btn:active{transform:translateY(1px)}
+.btn.blu{background:var(--blu); box-shadow:0 4px 12px rgba(0,102,204,.3)}
+.btn.ghost{background:#fff; color:var(--verde-scuro); border:2px solid var(--verde); box-shadow:none}
+.btn:disabled{opacity:.5; cursor:not-allowed; transform:none}
+input,select{font-family:inherit; font-size:1rem; padding:11px 13px; border:2px solid var(--bordo);
+  border-radius:10px; width:100%; background:#fff; color:var(--testo)}
+input:focus,select:focus{outline:none; border-color:var(--verde)}
+label{font-weight:700; font-size:.92rem; display:block; margin-bottom:5px; color:var(--verde-scuro)}
+.field{margin-bottom:14px}
+/* ---------- MODAL GLOSSARIO ---------- */
+.overlay{position:fixed; inset:0; background:rgba(10,30,20,.55); backdrop-filter:blur(3px);
+  display:none; align-items:center; justify-content:center; z-index:100; padding:20px}
+.overlay.on{display:flex}
+.modal{background:#fff; border-radius:20px; max-width:520px; width:100%; padding:28px 30px;
+  box-shadow:0 20px 60px rgba(0,0,0,.35); animation:pop .25s ease}
+@keyframes pop{from{transform:scale(.9); opacity:0}to{transform:scale(1); opacity:1}}
+.modal .mt{display:flex; align-items:center; gap:12px; margin-bottom:8px}
+.modal .mt .em{font-size:2rem}
+.modal h4{font-size:1.4rem; color:var(--verde-scuro)}
+.modal .def{font-size:1.08rem; margin:10px 0}
+.modal .es{background:var(--giallo); background:#fff7e6; border-left:5px solid var(--giallo);
+  padding:12px 16px; border-radius:10px; margin-top:12px}
+.modal .es b{color:#9a6a00}
+.modal .chiudi{margin-top:18px; width:100%; justify-content:center}
+/* ---------- SCANNER BIOMETRICO ---------- */
+.scanner-wrap{display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:center}
+@media(max-width:820px){.scanner-wrap{grid-template-columns:1fr}}
+.scanner{background:#0a1a2f; border-radius:18px; padding:24px; color:#cfe8ff; text-align:center; position:relative; overflow:hidden; min-height:300px; display:flex; flex-direction:column; justify-content:center; align-items:center}
+.scanner .display{font-size:5rem; line-height:1; margin-bottom:10px; transition:.3s}
+.scan-line{position:absolute; left:0; right:0; height:4px; background:linear-gradient(90deg,transparent,#33d6ff,transparent); top:0; opacity:0; box-shadow:0 0 12px #33d6ff}
+.scanner.scanning .scan-line{animation:scan 1.4s linear infinite; opacity:1}
+@keyframes scan{0%{top:8%}100%{top:92%}}
+.scanner .stato{font-weight:700; font-size:1.15rem; letter-spacing:.5px; min-height:1.6em}
+.scanner .barra{height:10px; background:rgba(255,255,255,.15); border-radius:6px; margin-top:14px; width:80%; overflow:hidden}
+.scanner .barra > i{display:block; height:100%; width:0; background:#33d6ff; border-radius:6px; transition:width .1s linear}
+.scanner.ok{box-shadow:inset 0 0 0 3px #2ecc71}
+.scanner.ok .stato{color:#7CFFB0}
+.scanner.no{box-shadow:inset 0 0 0 3px #ff5b6e}
+.scanner.no .stato{color:#ff9aa6}
+.bio-pick{display:flex; flex-direction:column; gap:10px}
+.bio-pick .opt{display:flex; gap:12px; align-items:center; padding:12px 16px; border:2px solid var(--bordo);
+  border-radius:12px; cursor:pointer; font-weight:700; background:#fff; transition:.12s}
+.bio-pick .opt .e{font-size:1.6rem}
+.bio-pick .opt:hover{border-color:var(--verde)}
+.bio-pick .opt.sel{border-color:var(--verde); background:var(--verde-chiaro)}
+.door{font-size:1rem; margin-top:12px; font-weight:700}
+/* ---------- SMARTPHONE ---------- */
+.phone-scene{display:grid; grid-template-columns:1.1fr .9fr; gap:24px; align-items:start}
+@media(max-width:820px){.phone-scene{grid-template-columns:1fr}}
+.site-mock{background:#fff; border:2px solid var(--bordo); border-radius:14px; padding:0; overflow:hidden; box-shadow:var(--ombra)}
+.site-bar{background:#f0f3f6; padding:8px 12px; display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--bordo); font-size:.8rem; color:var(--grigio)}
+.site-bar .dot{width:11px; height:11px; border-radius:50%}
+.site-bar .url{background:#fff; border:1px solid var(--bordo); border-radius:20px; padding:3px 12px; flex:1; font-size:.78rem}
+.site-body{padding:22px; text-align:center}
+.site-body .min{display:flex; gap:8px; align-items:center; justify-content:center; color:var(--blu-scuro); font-weight:700; margin-bottom:6px}
+.site-qr{display:inline-block; padding:12px; background:#fff; border:1px solid var(--bordo); border-radius:12px; margin:12px auto}
+.site-status{font-weight:700; margin-top:10px; min-height:1.5em}
+.phone{width:230px; margin:0 auto; background:#111; border-radius:34px; padding:12px; box-shadow:0 14px 40px rgba(0,0,0,.35); position:relative}
+.phone .notch{width:90px; height:18px; background:#111; border-radius:0 0 14px 14px; position:absolute; left:50%; transform:translateX(-50%); top:12px; z-index:3}
+.phone .screen{background:#0a3d91; border-radius:24px; height:430px; overflow:hidden; position:relative; display:flex; flex-direction:column}
+.ph-top{background:#0a3d91; color:#fff; text-align:center; padding:30px 10px 14px; font-weight:700}
+.ph-top .app{font-size:1.4rem}
+.ph-cam{flex:1; background:#1b1b1b; position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden}
+.ph-cam .frame{width:150px; height:150px; border:3px solid #ffce3a; border-radius:14px; position:relative; display:flex; align-items:center; justify-content:center; color:#fff; font-size:.8rem; text-align:center}
+.ph-cam .frame .scanq{position:absolute; left:6px; right:6px; height:3px; background:#ffce3a; box-shadow:0 0 10px #ffce3a; top:8px; opacity:0}
+.phone.scanning .ph-cam .frame .scanq{animation:scanq 1.2s linear infinite; opacity:1}
+@keyframes scanq{0%{top:8px}100%{top:138px}}
+.ph-hint{color:#cfe0ff; font-size:.82rem; padding:10px; text-align:center}
+.ph-done{position:absolute; inset:0; background:#0a3d91; color:#fff; display:none; flex-direction:column; align-items:center; justify-content:center; gap:10px; text-align:center; padding:20px}
+.ph-done.on{display:flex; animation:fade .3s}
+.ph-done .big{font-size:3.4rem}
+/* ---------- QR ---------- */
+.qr-out{display:flex; flex-direction:column; align-items:center; gap:10px}
+#qrcode{padding:14px; background:#fff; border:1px solid var(--bordo); border-radius:14px; min-height:60px}
+.anatomia{display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:10px}
+@media(max-width:820px){.anatomia{grid-template-columns:1fr}}
+.anatomia .a{background:var(--verde-chiaro); border-radius:10px; padding:10px 14px; font-size:.95rem}
+.anatomia .a b{color:var(--verde-scuro)}
+/* CF */
+.cf-result{font-family:'Courier New',monospace; font-size:2rem; font-weight:700; letter-spacing:3px;
+  text-align:center; background:#0a1a2f; color:#7CFFB0; padding:16px; border-radius:12px; margin:14px 0; word-break:break-all}
+.cf-break{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:8px}
+.cf-break span{background:#fff; border:2px solid var(--bordo); border-radius:8px; padding:6px 10px; text-align:center; font-size:.8rem; color:var(--grigio); min-width:60px}
+.cf-break span b{display:block; font-family:'Courier New',monospace; font-size:1.2rem; color:var(--verde-scuro); letter-spacing:2px}
+/* SITUAZIONI */
+.scelta{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:14px}
+@media(max-width:820px){.scelta{grid-template-columns:1fr}}
+.via{border-radius:16px; padding:20px; border:2px solid; cursor:pointer; transition:.15s; background:#fff}
+.via:hover{transform:translateY(-3px); box-shadow:var(--ombra)}
+.via.digi{border-color:var(--verde)}
+.via.fisic{border-color:var(--giallo)}
+.via h3{margin-top:0}
+.via .esito{display:none; margin-top:12px; padding-top:12px; border-top:1px dashed var(--bordo)}
+.via.aperta .esito{display:block; animation:fade .3s}
+.scenario-pick{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:6px}
+.scenario-pick button{flex:1; min-width:180px}
+.scenario-pick button.sel{background:var(--verde-scuro)}
+.persona{display:flex; gap:14px; align-items:center; background:var(--verde-chiaro); border-radius:14px; padding:16px 18px; margin:14px 0}
+.persona .av{font-size:2.6rem}
+/* sportelli */
+.sportelli{display:grid; grid-template-columns:repeat(2,1fr); gap:14px}
+@media(max-width:820px){.sportelli{grid-template-columns:1fr}}
+.sport{background:#fff; border:1px solid var(--bordo); border-radius:14px; padding:16px 18px; box-shadow:var(--ombra)}
+.sport .h{display:flex; gap:10px; align-items:center; font-weight:700; font-size:1.1rem; color:var(--verde-scuro); margin-bottom:6px}
+.sport .h .e{font-size:1.7rem}
+.sport ul{margin:6px 0 0 18px}
+.next{margin-top:30px; display:flex; justify-content:flex-end}
+.steps{counter-reset:s; margin:14px 0}
+.steps li{list-style:none; position:relative; padding:8px 0 8px 46px; margin-bottom:6px}
+.steps li::before{counter-increment:s; content:counter(s); position:absolute; left:0; top:6px;
+  width:32px; height:32px; background:var(--verde); color:#fff; border-radius:50%; display:flex;
+  align-items:center; justify-content:center; font-weight:700}
+.foot-firma{text-align:center; color:var(--grigio); font-size:.85rem; margin-top:50px; padding-top:18px; border-top:1px solid var(--bordo)}
+/* ---------- VERIFICA / QUIZ ---------- */
+.verifica-mount{margin-top:34px}
+.q-card{background:#fff; border:2px solid var(--bordo); border-radius:14px; padding:18px 20px; margin:14px 0; box-shadow:var(--ombra)}
+.q-card .q-text{font-weight:700; font-size:1.08rem; margin-bottom:12px}
+.q-card .q-text .qn{display:inline-flex; width:28px; height:28px; background:var(--verde); color:#fff; border-radius:50%; align-items:center; justify-content:center; font-size:.9rem; margin-right:8px; vertical-align:middle}
+.q-card .badge{float:right; font-size:.72rem; background:var(--verde-chiaro); color:var(--verde-scuro); padding:3px 11px; border-radius:999px; font-weight:700; margin-top:3px}
+.opt{display:flex; align-items:center; gap:10px; padding:10px 14px; border:2px solid var(--bordo); border-radius:10px; margin-bottom:8px; cursor:pointer; font-weight:600; background:#fff; transition:.12s}
+.opt:hover{border-color:var(--verde); background:var(--verde-chiaro)}
+.opt input{width:auto; margin:0}
+.chip{display:inline-block; padding:8px 14px; border:2px solid var(--bordo); border-radius:999px; margin:4px; cursor:pointer; font-weight:700; background:#fff; transition:.12s}
+.chip:hover{border-color:var(--blu)}
+.chip.sel{background:var(--blu); color:#fff; border-color:var(--blu)}
+.fillsel,.matchsel{display:inline-block; width:auto; min-width:130px; margin:3px 4px; padding:7px 10px}
+.q-card .frase{font-size:1.06rem; line-height:2.3}
+ul.ord{list-style:none; margin:0; padding:0}
+.ord li{display:flex; align-items:center; gap:10px; background:#fff; border:2px solid var(--bordo); border-radius:10px; padding:9px 12px; margin-bottom:8px; font-weight:600}
+.ord li .ordbtns{margin-left:auto; display:flex; gap:5px}
+.ord li .ordbtns button{width:36px; height:36px; border:none; border-radius:8px; background:var(--verde-chiaro); color:var(--verde-scuro); font-size:1.2rem; cursor:pointer; font-weight:700; font-family:inherit}
+.ord li .ordbtns button:hover{background:var(--verde); color:#fff}
+.cat-item{display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding:10px 12px; border:2px solid var(--bordo); border-radius:10px; margin-bottom:8px; font-weight:600}
+.cat-item .cat-pick{margin-left:auto; display:flex; gap:6px; flex-wrap:wrap}
+.catb{border:2px solid var(--bordo); background:#fff; border-radius:8px; padding:6px 12px; cursor:pointer; font-weight:700; font-size:.85rem; font-family:inherit; color:var(--testo)}
+.catb:hover{border-color:var(--verde)}
+.catb.sel{background:var(--verde); color:#fff; border-color:var(--verde)}
+.match-row{display:flex; align-items:center; gap:10px; margin-bottom:8px; flex-wrap:wrap}
+.match-row .ml{font-weight:700; min-width:170px}
+.q-fb{display:none; margin-top:12px; padding:10px 14px; border-radius:10px; background:#f3f7f5; font-size:.95rem; border-left:4px solid var(--verde)}
+.q-card.giusta{border-color:var(--verde)}
+.q-card.sbagliata{border-color:var(--rosso)}
+.q-card.sbagliata .q-fb{border-left-color:var(--rosso); background:#fdeff1}
+.quiz-score{display:none; margin-top:14px; padding:14px 18px; border-radius:12px; background:var(--verde-chiaro); color:var(--verde-scuro); font-size:1.15rem; font-weight:700; text-align:center}
+.quiz-score.full{background:#e7f7ec}
+/* ---------- SICUREZZA: password & phishing ---------- */
+.barra-pwd{height:14px; background:#eee; border-radius:8px; overflow:hidden; margin-top:6px}
+.barra-pwd > i{display:block; height:100%; width:0; border-radius:8px; transition:width .25s, background .25s}
+#pwdTips li{padding:3px 0}
+.phish-prog{font-size:.9rem; color:var(--grigio); margin-bottom:8px; font-weight:700}
+.phish-q{font-size:1.12rem; font-weight:700; margin-bottom:14px; background:var(--blu-chiaro); padding:14px 16px; border-radius:10px; line-height:1.5}
+.phish-btns{display:flex; gap:10px; flex-wrap:wrap}
+.phish-fb{margin-top:14px; padding:12px 16px; border-radius:10px; display:none; font-size:.97rem}
+/* ---------- TIENI IL SEGNO / INDICE DI ATTENZIONE ---------- */
+.pensiero{cursor:pointer; border-radius:8px; padding:3px 9px; margin-left:-9px; margin-right:-9px;
+  transition:background .2s, box-shadow .2s}
+.pensiero:hover{background:#eef6f1}
+.pensiero.attivo{background:#fff6da; box-shadow:inset 3px 0 0 var(--giallo); animation:segnoPulse 1.7s ease-in-out infinite}
+.pensiero.letto{background:var(--verde-chiaro); box-shadow:inset 3px 0 0 var(--verde)}
+.pensiero.troppo{animation:segnoNo .42s}
+@keyframes segnoPulse{0%,100%{background:#fff6da}50%{background:#ffe9ad}}
+@keyframes segnoNo{0%,100%{transform:none}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.segno-badge{position:fixed; top:16px; right:18px; z-index:60; background:#fff; border:2px solid var(--verde);
+  border-radius:16px; padding:10px 14px 9px; box-shadow:var(--ombra); text-align:center; min-width:128px; cursor:default}
+.segno-badge .sg-top{font-weight:700; color:var(--verde-scuro); font-size:.74rem; letter-spacing:.3px;
+  display:flex; gap:5px; justify-content:center; align-items:center}
+.segno-badge .sg-perc{font-size:1.8rem; font-weight:700; color:var(--verde); line-height:1.05; margin:1px 0}
+.segno-badge .sg-bar{height:8px; background:#e9efec; border-radius:6px; overflow:hidden; margin:3px 0 4px}
+.segno-badge .sg-bar > i{display:block; height:100%; width:0; background:var(--verde); border-radius:6px; transition:width .3s}
+.segno-badge .sg-foot{font-size:.72rem; color:var(--grigio)}
+.segno-badge.pieno{border-color:var(--giallo)}
+.segno-badge.pieno .sg-perc{color:#cf8e00}
+.segno-badge.pieno .sg-bar > i{background:var(--giallo)}
+.segno-hint{font-size:.86rem; color:var(--grigio); background:#fff6da; border-left:5px solid var(--giallo);
+  padding:9px 14px; border-radius:10px; margin:10px 0 4px; display:flex; gap:8px; align-items:center}
+@media(max-width:900px){.segno-badge{top:8px; right:8px; min-width:104px; padding:7px 10px}
+  .segno-badge .sg-perc{font-size:1.4rem}}
+.topbar-mobile{display:none}
+@media(max-width:720px){
+  body{flex-direction:column}
+  .sidebar{width:100%; min-width:0; height:auto; position:static; flex-direction:row; overflow-x:auto}
+  .wrap{padding:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ INDICE DI ATTENZIONE (tieni il segno) ============ -->
+<div id="segnoBadge" class="segno-badge" title="Indice di attenzione: clicca ogni pensiero mentre l'insegnante lo legge, per tenere il segno.">
+  <div class="sg-top"><span>👁️</span> Attenzione</div>
+  <div class="sg-perc">0%</div>
+  <div class="sg-bar"><i></i></div>
+  <div class="sg-foot">Pensieri seguiti: <b class="sg-tot">0</b></div>
+</div>
+
+<!-- ============ SIDEBAR ============ -->
+<aside class="sidebar">
+  <div class="sb-logo">
+    <img src="logoscuola.jpg" alt="Logo Scuola Sacra Famiglia">
+    <div class="t1">Cittadinanza Digitale</div>
+    <div class="t2">Identità e servizi online</div>
+  </div>
+  <nav class="nav" id="nav">
+    <a data-go="home"><span class="ico">🏠</span> Home <span class="num">Intro</span></a>
+    <a data-go="identita"><span class="ico">🪪</span> L'identità <span class="num">1</span></a>
+    <a data-go="biometria"><span class="ico">🧬</span> Dati biometrici <span class="num">2</span></a>
+    <a data-go="digitale"><span class="ico">💻</span> Identità digitale & PA <span class="num">3</span></a>
+    <a data-go="codicefiscale"><span class="ico">🔢</span> Il codice fiscale <span class="num">4</span></a>
+    <a data-go="qrcode"><span class="ico">▦</span> I codici QR <span class="num">5</span></a>
+    <a data-go="cieid"><span class="ico">📱</span> La CieID <span class="num">6</span></a>
+    <a data-go="sicurezza"><span class="ico">🛡️</span> Proteggi l'identità <span class="num">7</span></a>
+    <a data-go="situazioni"><span class="ico">🌍</span> Situazioni reali <span class="num">8</span></a>
+  </nav>
+  <div class="sb-foot">
+    © 2026 Scuola Sacra Famiglia — Orzinuovi (BS)<br>
+    Animatore Digitale: Andrea Cerioli
+  </div>
+</aside>
+
+<!-- ============ MAIN ============ -->
+<main class="main"><div class="wrap">
+
+<!-- ========== HOME ========== -->
+<section class="page" id="page-home">
+  <span class="eyebrow">Laboratorio di Informatica</span>
+  <h1>Cittadino del mondo… anche di quello digitale</h1>
+  <p class="lead">Ogni giorno, anche senza accorgerti, usi servizi che hanno bisogno di sapere <b>chi sei</b>. In questo percorso scopriamo come dimostriamo la nostra identità nella vita reale e in quella online.</p>
+  <img class="hero" src="home.jpg" alt="Identità digitale">
+  <div class="card">
+    <h3 style="margin-top:0">Che cos'è la cittadinanza digitale?</h3>
+    <p>Essere <b>cittadini</b> significa avere diritti e doveri e poter usare i <b class="kw" data-t="servizipubblici">servizi pubblici</b>: la scuola, la posta, il comune, la sanità. La <b class="kw" data-t="cittadinanzadigitale">cittadinanza digitale</b> è la stessa cosa, ma quando questi servizi li usiamo attraverso un computer o uno smartphone: prenotare una visita, scaricare un certificato, iscriversi a scuola… tutto da casa.</p>
+    <p>Per farlo in sicurezza, però, il sistema deve essere certo che dall'altra parte dello schermo ci sia <b>proprio tu</b> e non qualcun altro. Ecco perché parliamo di <b class="kw" data-t="identitadigitale">identità digitale</b>.</p>
+  </div>
+  <h2>Cosa faremo in questo percorso</h2>
+  <div class="grid3">
+    <div class="card"><h3>🪪 L'identità</h3><p>Quali dati dicono chi sei e perché a volte devi dimostrarlo.</p></div>
+    <div class="card"><h3>🧬 La biometria</h3><p>Come una macchina riconosce una persona. Proverai uno <b>scanner</b>.</p></div>
+    <div class="card"><h3>🔢 Codice fiscale</h3><p>Quel codice strano che hai anche tu: lo costruiremo insieme.</p></div>
+    <div class="card"><h3>▦ I codici QR</h3><p>Come funzionano e un <b>generatore</b> per crearne uno tuo.</p></div>
+    <div class="card"><h3>📱 La CieID</h3><p>Entrare nei siti dello Stato con la carta d'identità e un QR.</p></div>
+    <div class="card"><h3>🛡️ Proteggi l'identità</h3><p>Password sicure, privacy e come evitare le trappole online.</p></div>
+    <div class="card"><h3>🌍 Situazioni reali</h3><p>Come il digitale aiuta… o lascia indietro chi non sa usarlo.</p></div>
+  </div>
+  <div class="box info" style="margin-top:24px">
+    <div class="titolo">💡 Come si usa questa app</div>
+    Le parole <b class="kw" data-t="evidenziata">evidenziate in blu</b> si possono cliccare: si apre una finestra che spiega il significato con un esempio. In ogni pagina trovi anche una parte <b>interattiva</b> da provare con il mouse.
+  </div>
+  <div class="segno-hint"><span style="font-size:1.3rem">👆</span> <span><b>Tieni il segno!</b> Mentre l'insegnante legge ad alta voce, clicca ogni paragrafo nel momento in cui viene letto: si illumina di verde. In alto a destra vedi il tuo <b>indice di attenzione</b>. Vai al passo della voce: cliccare di corsa non lo fa salire.</span></div>
+  <div class="next"><button class="btn" data-go="identita">Iniziamo → L'identità</button></div>
+</section>
+
+<!-- ========== IDENTITÀ ========== -->
+<section class="page" id="page-identita">
+  <span class="eyebrow">Pagina 1</span>
+  <h1>L'identità: chi sei e come lo dimostri</h1>
+  <p class="lead">La tua <b class="kw" data-t="identita">identità</b> è l'insieme delle cose che ti rendono unico e diverso da chiunque altro. Ma come fai a dimostrare agli altri di essere davvero tu?</p>
+
+  <h2>Quali dati identificano una persona</h2>
+  <p>Per riconoscerti, gli altri usano dei <b class="kw" data-t="datipersonali">dati personali</b>. Alcuni li hai dalla nascita, altri ti vengono dati dallo Stato. Eccone alcuni:</p>
+  <div class="tags">
+    <span class="tag">Nome e cognome</span>
+    <span class="tag">Data e luogo di nascita</span>
+    <span class="tag">Indirizzo di casa</span>
+    <span class="tag">Foto del viso</span>
+    <span class="tag blu">Codice fiscale</span>
+    <span class="tag blu">Numero della carta d'identità</span>
+  </div>
+  <div class="box warn">
+    <div class="titolo">⚠️ Attenzione</div>
+    Il nome da solo non basta: in Italia ci sono migliaia di persone che si chiamano "Marco Rossi". Per questo lo Stato aggiunge dati che <b>non si ripetono mai</b>, come il <b class="kw" data-t="codicefiscale">codice fiscale</b>.
+  </div>
+
+  <h2>Perché bisogna poter dimostrare l'identità</h2>
+  <p>Dimostrare chi sei serve a proteggere <b>te</b> e gli <b>altri</b>. Senza una prova, chiunque potrebbe fingersi te e prendere le tue cose o i tuoi diritti. Si chiama <b class="kw" data-t="identita">identificazione</b>.</p>
+  <div class="grid2">
+    <div class="card"><h3>🏦 In banca</h3><p>Per ritirare i soldi devi dimostrare che il conto è tuo, altrimenti chiunque potrebbe prenderli.</p></div>
+    <div class="card"><h3>✈️ In aeroporto</h3><p>Per salire sull'aereo mostri il <b class="kw" data-t="documento">documento</b>: serve a sapere chi viaggia, per la sicurezza di tutti.</p></div>
+    <div class="card"><h3>🏥 Dal medico</h3><p>La tua <b class="kw" data-t="tesserasanitaria">tessera sanitaria</b> collega le cure proprio alla tua salute, non a quella di un altro.</p></div>
+    <div class="card"><h3>🗳️ Al seggio</h3><p>Da grande, per votare mostrerai un documento: così ognuno vota una sola volta.</p></div>
+  </div>
+
+  <h2>A chi devi esibire l'identità</h2>
+  <p>Mostri un documento solo a chi ne ha davvero il diritto: le <b class="kw" data-t="pubblicaamministrazione">istituzioni pubbliche</b> (polizia, comune, scuola), la banca, l'ospedale. Lo strumento normale per farlo è la <b class="kw" data-t="cartaidentita">carta d'identità</b>.</p>
+  <div class="box bad">
+    <div class="titolo">🚫 Regola d'oro</div>
+    Non si danno i propri dati a sconosciuti, né di persona né online! Una foto della carta d'identità inviata alla persona sbagliata può essere usata per <b class="kw" data-t="furtoidentita">rubare la tua identità</b>.
+  </div>
+
+  <h2 id="prova-id">🎮 Prova tu: quali dati ti identificano?</h2>
+  <p>Clicca i dati che, da soli o insieme, servono per identificare con certezza una persona. Poi controlla.</p>
+  <div class="card">
+    <div class="tags" id="dati-quiz"></div>
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:8px">
+      <button class="btn" onclick="controllaDati()">Controlla</button>
+      <button class="btn ghost" onclick="resetDati()">Ricomincia</button>
+    </div>
+    <div id="dati-esito" style="margin-top:12px"></div>
+  </div>
+  <div class="verifica-mount" data-sez="identita"></div>
+  <div class="next"><button class="btn" data-go="biometria">Avanti → Dati biometrici</button></div>
+</section>
+
+<!-- ========== BIOMETRIA ========== -->
+<section class="page" id="page-biometria">
+  <span class="eyebrow">Pagina 2</span>
+  <h1>I dati biometrici: il corpo come password</h1>
+  <p class="lead">Alcuni dati non sono scritti su un foglio: sono <b>parte del tuo corpo</b>. Si chiamano <b class="kw" data-t="biometria">dati biometrici</b> e il digitale li usa per riconoscerti senza che tu debba ricordare nulla.</p>
+  <figure>
+    <img class="media" src="mappa.jpg" alt="Mappa dei dati biometrici">
+    <figcaption>I principali dati biometrici di una persona.</figcaption>
+  </figure>
+
+  <h2>Quali dati biometrici usa il digitale</h2>
+  <div class="grid3">
+    <div class="card"><h3>👆 Impronta digitale</h3><p>Il disegno di linee sui polpastrelli. È diverso per ogni dito e per ogni persona, persino tra gemelli.</p></div>
+    <div class="card"><h3>😀 Volto</h3><p>La <b class="kw" data-t="riconoscimentofacciale">forma del viso</b>: distanza tra gli occhi, naso, mento. È così che si sblocca molti smartphone.</p></div>
+    <div class="card"><h3>👁️ Iride</h3><p>I disegni colorati intorno alla pupilla. Sono unici e quasi impossibili da copiare.</p></div>
+    <div class="card"><h3>🗣️ Voce</h3><p>Il tono e il modo di parlare. Alcune banche ti riconoscono al telefono dalla voce.</p></div>
+    <div class="card"><h3>✍️ Firma e modo di scrivere</h3><p>Come muovi la mano, la velocità, la pressione: anche questo ti distingue.</p></div>
+    <div class="card"><h3>❤️ Battito e vene</h3><p>Tecnologie avanzate leggono il ritmo del cuore o il disegno delle vene della mano.</p></div>
+  </div>
+  <div class="box info">
+    <div class="titolo">🔐 Perché sono utili</div>
+    Una password si può dimenticare o rubare. Il tuo corpo invece ce l'hai sempre con te: per questo i dati biometrici servono a garantire un <b class="kw" data-t="accessosicuro">accesso sicuro</b> a luoghi (un ufficio, un aeroporto) o ad ambienti digitali (lo smartphone, un'app).
+  </div>
+
+  <h2>🎮 Simulatore: lo scanner biometrico</h2>
+  <p>Immagina un <b class="kw" data-t="scanner">scanner</b> all'ingresso di un ufficio importante. Scegli quale dato far leggere, poi avvia la scansione. Lo scanner confronta il dato con quelli registrati e decide se aprire la porta.</p>
+  <div class="card">
+    <div class="scanner-wrap">
+      <div class="bio-pick" id="bioPick">
+        <div class="opt sel" data-bio="impronta"><span class="e">👆</span> Impronta digitale</div>
+        <div class="opt" data-bio="volto"><span class="e">😀</span> Riconoscimento del volto</div>
+        <div class="opt" data-bio="iride"><span class="e">👁️</span> Scansione dell'iride</div>
+        <div style="margin-top:6px"><button class="btn" id="btnScan" onclick="avviaScan()">▶ Avvia scansione</button></div>
+        <label style="margin-top:10px"><input type="checkbox" id="impostore" style="width:auto; margin-right:6px">Simula un <b>impostore</b> (persona non riconosciuta)</label>
+      </div>
+      <div class="scanner" id="scanner">
+        <div class="scan-line"></div>
+        <div class="display" id="scanIcon">👆</div>
+        <div class="stato" id="scanStato">In attesa…</div>
+        <div class="barra"><i id="scanBar"></i></div>
+        <div class="door" id="scanDoor"></div>
+      </div>
+    </div>
+  </div>
+  <figure>
+    <img class="media" src="3.jpg" alt="Controllo biometrico in un edificio pubblico">
+    <figcaption>Un vero controllo biometrico all'ingresso di un edificio: la macchina verifica il volto e dà o nega l'accesso.</figcaption>
+  </figure>
+  <div class="box warn">
+    <div class="titolo">🤔 Da pensare insieme</div>
+    I dati biometrici sono comodissimi, ma sono <b>delicati</b>: non puoi cambiarli come una password. Per questo la legge protegge in modo speciale chi li raccoglie e li conserva.
+  </div>
+  <div class="verifica-mount" data-sez="biometria"></div>
+  <div class="next"><button class="btn" data-go="digitale">Avanti → Identità digitale & PA</button></div>
+</section>
+
+<!-- ========== DIGITALE & PA ========== -->
+<section class="page" id="page-digitale">
+  <span class="eyebrow">Pagina 3</span>
+  <h1>L'identità digitale e la Pubblica Amministrazione</h1>
+  <p class="lead">La <b class="kw" data-t="identitadigitale">identità digitale</b> è la tua carta d'identità… ma per Internet. Ti permette di entrare nei siti dello Stato ed essere riconosciuto con certezza, senza andare di persona a uno sportello.</p>
+  <figure>
+    <img class="media" src="pubblica_amministrazione.jpg" alt="Sportello della Pubblica Amministrazione">
+    <figcaption>Uno sportello dell'URP: oggi molti di questi servizi si possono fare anche da casa, online.</figcaption>
+  </figure>
+
+  <h2>Che cos'è la Pubblica Amministrazione</h2>
+  <p>La <b class="kw" data-t="pubblicaamministrazione">Pubblica Amministrazione</b> (in breve <b>PA</b>) è l'insieme degli uffici dello Stato che lavorano per i cittadini: il Comune, la scuola, l'ospedale, l'Agenzia delle Entrate, l'INPS. Quando ti serve un documento o un servizio, ti rivolgi a loro.</p>
+
+  <h2>Le chiavi per entrare online: SPID e CIE</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>🆔 SPID</h3>
+      <p>Lo <b class="kw" data-t="spid">SPID</b> è un nome utente e una password speciali, uguali per tutti i siti pubblici. Una sola identità per entrare ovunque.</p>
+    </div>
+    <div class="card">
+      <h3>💳 CIE</h3>
+      <p>La <b class="kw" data-t="cie">Carta d'Identità Elettronica</b> è la carta d'identità con un microchip dentro. Avvicinandola allo smartphone, diventa la tua chiave digitale.</p>
+    </div>
+  </div>
+
+  <h2>Cosa puoi fare nella PA digitale</h2>
+  <div class="tags">
+    <span class="tag blu">Scaricare un certificato (es. di nascita)</span>
+    <span class="tag blu">Prenotare una visita medica</span>
+    <span class="tag blu">Vedere le pagelle e iscriverti a scuola</span>
+    <span class="tag blu">Pagare una tassa con pagoPA</span>
+    <span class="tag blu">Leggere i messaggi dello Stato sull'app IO</span>
+  </div>
+  <div class="box ok">
+    <div class="titolo">✅ Il vantaggio</div>
+    Prima per un certificato bisognava andare al Comune, fare la fila e tornare a casa. Oggi con l'identità digitale lo scarichi in <b>due minuti</b> dal divano, gratis e a qualsiasi ora.
+  </div>
+
+  <h2>🎮 Confronta: allo sportello o online?</h2>
+  <p>Clicca i due pulsanti e guarda quanto cambia ottenere lo stesso certificato.</p>
+  <div class="card">
+    <div class="scelta">
+      <div class="via fisic" onclick="this.classList.toggle('aperta')">
+        <h3>🚶 Allo sportello</h3>
+        <p>Vai di persona al Comune.</p>
+        <div class="esito">
+          <ul class="steps">
+            <li>Prendi mezz'ora di permesso o salti la scuola</li>
+            <li>Raggiungi il Comune e prendi il numero</li>
+            <li>Aspetti il tuo turno in fila</li>
+            <li>Ricevi il certificato cartaceo</li>
+          </ul>
+          <b style="color:var(--rosso)">⏱️ Tempo: anche 1-2 ore</b>
+        </div>
+      </div>
+      <div class="via digi" onclick="this.classList.toggle('aperta')">
+        <h3>💻 Online con identità digitale</h3>
+        <p>Entri nel sito del Comune.</p>
+        <div class="esito">
+          <ul class="steps">
+            <li>Apri il sito e clicca "Entra con SPID/CIE"</li>
+            <li>Ti riconosce in pochi secondi</li>
+            <li>Scegli il certificato</li>
+            <li>Lo scarichi subito in PDF</li>
+          </ul>
+          <b style="color:var(--verde)">⏱️ Tempo: circa 2 minuti</b>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="verifica-mount" data-sez="digitale"></div>
+  <div class="next"><button class="btn" data-go="codicefiscale">Avanti → Il codice fiscale</button></div>
+</section>
+
+<!-- ========== CODICE FISCALE ========== -->
+<section class="page" id="page-codicefiscale">
+  <span class="eyebrow">Pagina 4</span>
+  <h1>Il codice fiscale: il tuo nome in codice</h1>
+  <p class="lead">Il <b class="kw" data-t="codicefiscale">codice fiscale</b> è una sigla di 16 caratteri che lo Stato dà a ogni persona, <b>anche a te</b>. Serve a riconoscerti senza confusione: è diverso per ognuno.</p>
+
+  <h2>Come è fatto</h2>
+  <p>Non è scelto a caso: ogni pezzo nasce dai tuoi dati. Ecco la "ricetta":</p>
+  <div class="anatomia">
+    <div class="a"><b>3 lettere</b> dal cognome</div>
+    <div class="a"><b>3 lettere</b> dal nome</div>
+    <div class="a"><b>2 cifre</b> dell'anno di nascita</div>
+    <div class="a"><b>1 lettera</b> per il mese di nascita</div>
+    <div class="a"><b>2 cifre</b> per il giorno (per le femmine +40)</div>
+    <div class="a"><b>4 caratteri</b> per il comune di nascita</div>
+    <div class="a"><b>1 lettera</b> finale di controllo</div>
+  </div>
+  <div class="box info">
+    <div class="titolo">🔎 La lettera di controllo</div>
+    L'ultima lettera è un trucco matematico: si calcola dalle altre 15. Se sbagli a scrivere il codice, il computer se ne accorge subito perché l'ultima lettera non torna!
+  </div>
+
+  <h2>🎮 Generatore: costruisci il tuo codice fiscale</h2>
+  <p>Inserisci i tuoi dati (o quelli di un personaggio inventato) e guarda come nasce il codice, pezzo per pezzo.</p>
+  <div class="card">
+    <div class="grid2">
+      <div class="field"><label>Cognome</label><input id="cf-cognome" placeholder="es. Rossi" maxlength="30"></div>
+      <div class="field"><label>Nome</label><input id="cf-nome" placeholder="es. Maria" maxlength="30"></div>
+      <div class="field"><label>Data di nascita</label><input id="cf-data" type="date"></div>
+      <div class="field"><label>Sesso</label>
+        <select id="cf-sesso"><option value="M">Maschile</option><option value="F">Femminile</option></select>
+      </div>
+      <div class="field"><label>Comune di nascita</label>
+        <select id="cf-comune">
+          <option value="G149">Orzinuovi (BS)</option>
+          <option value="B157">Brescia</option>
+          <option value="F205">Milano</option>
+          <option value="H501">Roma</option>
+          <option value="F839">Napoli</option>
+          <option value="L219">Torino</option>
+          <option value="A944">Bologna</option>
+          <option value="D612">Firenze</option>
+          <option value="Z000">Estero</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn" onclick="generaCF()">🔢 Genera il codice fiscale</button>
+    <div id="cf-box" style="display:none">
+      <div class="cf-result" id="cf-out"></div>
+      <div class="cf-break" id="cf-break"></div>
+    </div>
+  </div>
+  <div class="box warn">
+    <div class="titolo">⚠️ Solo per imparare</div>
+    Questo generatore serve a capire come funziona. Il codice ufficiale lo rilascia l'<b>Agenzia delle Entrate</b>: solo quello vale davvero.
+  </div>
+  <div class="verifica-mount" data-sez="codicefiscale"></div>
+  <div class="next"><button class="btn" data-go="qrcode">Avanti → I codici QR</button></div>
+</section>
+
+<!-- ========== QR CODE ========== -->
+<section class="page" id="page-qrcode">
+  <span class="eyebrow">Pagina 5</span>
+  <h1>I codici QR: quadratini pieni di informazioni</h1>
+  <p class="lead">Un <b class="kw" data-t="qrcode">codice QR</b> è quel quadrato in bianco e nero che si inquadra con la fotocamera. Dentro può nascondere un link, un testo o un comando. "QR" vuol dire <i>Quick Response</i>, cioè <b>risposta veloce</b>.</p>
+
+  <h2>Come funziona</h2>
+  <p>Il QR è come un <b class="kw" data-t="codicebinario">alfabeto fatto di quadratini</b>: ogni quadratino nero o bianco è un pezzettino di informazione. La fotocamera fotografa il disegno, il software lo "legge" e capisce cosa c'è scritto. È l'evoluzione del vecchio <b class="kw" data-t="codiceabarre">codice a barre</b> dei prodotti al supermercato, ma può contenere molte più informazioni.</p>
+  <div class="card">
+    <h3>Le sue caratteristiche</h3>
+    <div class="anatomia">
+      <div class="a"><b>I tre quadrati grandi</b> agli angoli: dicono alla fotocamera dove sono i bordi e come è girato il codice.</div>
+      <div class="a"><b>Funziona in ogni verso:</b> puoi inquadrarlo storto o capovolto, viene letto lo stesso.</div>
+      <div class="a"><b>È resistente:</b> anche se una parte è sporca o rovinata, spesso si legge ancora (correzione degli errori).</div>
+      <div class="a"><b>Veloce e gratis:</b> si crea in un istante e si legge con qualsiasi smartphone.</div>
+    </div>
+  </div>
+  <div class="box info">
+    <div class="titolo">📍 Dove li trovi</div>
+    Sul menù del ristorante, sui biglietti del treno, sui manifesti, sui pacchi, e anche sui siti dello Stato per accedere con la <b class="kw" data-t="cie">CIE</b>, come vedremo nella prossima pagina.
+  </div>
+
+  <h2>🎮 Generatore di codici QR</h2>
+  <p>Scrivi un messaggio o un indirizzo di un sito e crea il tuo QR. Poi prova a leggerlo con la fotocamera di un vero smartphone… oppure con lo smartphone simulato della prossima pagina!</p>
+  <div class="card">
+    <div class="field">
+      <label>Testo o indirizzo (URL)</label>
+      <input id="qr-text" placeholder="es. Ciao dalla 2A!  oppure  https://sacrafamiglia.edu.it" value="https://sacrafamiglia.edu.it">
+    </div>
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px">
+      <button class="btn" onclick="generaQR()">▦ Genera QR</button>
+      <button class="btn ghost" onclick="scaricaQR()">⬇ Scarica immagine</button>
+    </div>
+    <div class="qr-out">
+      <div id="qrcode"></div>
+      <small id="qr-info" style="color:var(--grigio)"></small>
+    </div>
+  </div>
+  <div class="box warn">
+    <div class="titolo">🛡️ Usali con prudenza</div>
+    Un QR può portarti a un sito qualsiasi: non sai dove finisci finché non lo apri. Non inquadrare codici QR trovati in giro o ricevuti da sconosciuti: potrebbero portarti a pagine pericolose.
+  </div>
+  <div class="verifica-mount" data-sez="qrcode"></div>
+  <div class="next"><button class="btn" data-go="cieid">Avanti → La CieID</button></div>
+</section>
+
+<!-- ========== CIEID ========== -->
+<section class="page" id="page-cieid">
+  <span class="eyebrow">Pagina 6</span>
+  <h1>La CieID: entrare nei siti con la carta d'identità</h1>
+  <p class="lead"><b class="kw" data-t="cieid">CieID</b> è l'app che trasforma la tua <b class="kw" data-t="cie">Carta d'Identità Elettronica</b> nella chiave per entrare nei siti dello Stato. Spesso si usa proprio insieme a un <b class="kw" data-t="qrcode">codice QR</b>.</p>
+  <div class="grid2">
+    <figure><img class="media" src="2.jpg" alt="App CieID sullo smartphone"><figcaption>L'app CieID sullo smartphone.</figcaption></figure>
+    <figure><img class="media" src="1.jpg" alt="Accesso con QR code dal computer"><figcaption>Il sito mostra un QR: lo si inquadra col telefono per entrare.</figcaption></figure>
+  </div>
+
+  <h2>Come si usa, passo dopo passo</h2>
+  <ul class="steps">
+    <li>Sul computer apri il sito dello Stato e clicchi <b>"Entra con CIE"</b>.</li>
+    <li>Il sito mostra un <b class="kw" data-t="qrcode">codice QR</b> sullo schermo.</li>
+    <li>Apri l'app <b>CieID</b> sullo smartphone e inquadri il QR.</li>
+    <li>Avvicini la <b>carta d'identità</b> al telefono (legge il microchip) e digiti il PIN.</li>
+    <li>Il sito ti riconosce e ti fa entrare in modo <b class="kw" data-t="accessosicuro">sicuro</b>.</li>
+  </ul>
+  <div class="box info">
+    <div class="titolo">❓ Perché il QR?</div>
+    Il QR collega in modo sicuro il <b>computer</b> (dove vuoi entrare) e il tuo <b>telefono</b> (che ha la tua identità). È un ponte temporaneo: vale solo per quell'accesso e poi scade.
+  </div>
+
+  <h2>🎮 Simulatore: accedi con lo smartphone</h2>
+  <p>A sinistra c'è il sito dello Stato sul computer, con il suo QR. A destra il tuo smartphone simulato. Premi <b>"Inquadra il QR"</b> e guarda cosa succede: il sito registra la tua identità e ti fa entrare.</p>
+  <div class="card">
+    <div class="phone-scene">
+      <!-- sito -->
+      <div class="site-mock">
+        <div class="site-bar">
+          <span class="dot" style="background:#ff5f56"></span>
+          <span class="dot" style="background:#ffbd2e"></span>
+          <span class="dot" style="background:#27c93f"></span>
+          <span class="url">🔒 https://www.servizi.gov.it/accedi</span>
+        </div>
+        <div class="site-body">
+          <div class="min">🏛️ Portale dei Servizi Pubblici</div>
+          <h3 style="margin:4px 0">Accedi con CIE</h3>
+          <p style="font-size:.92rem; color:var(--grigio)">Inquadra il codice QR con l'app CieID</p>
+          <div class="site-qr" id="cie-qr"></div>
+          <div class="site-status" id="siteStatus" style="color:var(--grigio)">In attesa di accesso…</div>
+        </div>
+      </div>
+      <!-- telefono -->
+      <div>
+        <div class="phone" id="phone">
+          <div class="notch"></div>
+          <div class="screen">
+            <div class="ph-top"><div class="app">CieID</div><small>Carta d'Identità Elettronica</small></div>
+            <div class="ph-cam">
+              <div class="frame"><div class="scanq"></div><span id="phFrameTxt">📷</span></div>
+            </div>
+            <div class="ph-hint" id="phHint">Premi il pulsante per inquadrare</div>
+            <div class="ph-done" id="phDone">
+              <div class="big">✅</div>
+              <div><b>Identità verificata</b></div>
+              <small>Anna Rossi · accesso consentito</small>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; margin-top:14px">
+          <button class="btn blu" id="btnPhone" onclick="scanQRPhone()">📷 Inquadra il QR</button>
+          <button class="btn ghost" onclick="resetPhone()" style="margin-top:8px">↺ Ricomincia</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="box ok">
+    <div class="titolo">✅ Cosa è successo</div>
+    Il sito ha mostrato un QR, il telefono lo ha "letto" e ha confermato la tua identità con la carta. Il sito ha <b>registrato l'accesso</b> e ti ha fatto entrare: tutto in pochi secondi e senza uscire di casa.
+  </div>
+  <div class="verifica-mount" data-sez="cieid"></div>
+  <div class="next"><button class="btn" data-go="situazioni">Avanti → Situazioni reali</button></div>
+</section>
+
+<!-- ========== SICUREZZA ========== -->
+<section class="page" id="page-sicurezza">
+  <span class="eyebrow">Pagina 7</span>
+  <h1>Proteggi la tua identità digitale</h1>
+  <p class="lead">Avere un'identità digitale è comodo, ma va <b>custodita</b> come la chiave di casa. Impariamo a tenere al sicuro password e dati e a riconoscere le <b class="kw" data-t="truffaonline">trappole online</b>.</p>
+
+  <h2>1. Password e PIN: la prima difesa</h2>
+  <p>La <b class="kw" data-t="password">password</b> è la parola segreta che dimostra che un account è tuo. Una password debole è come lasciare la porta aperta.</p>
+  <div class="grid2">
+    <div class="card"><h3>✅ Una buona password</h3><ul><li>È <b>lunga</b> (almeno 8-10 caratteri)</li><li>Mescola MAIUSCOLE, minuscole, numeri e simboli</li><li>Non è una parola comune né il tuo nome</li></ul></div>
+    <div class="card"><h3>🚫 Da non fare mai</h3><ul><li>Usare "1234" o "password"</li><li>Dirla a qualcuno, anche agli amici</li><li>Usare la stessa password per tutto</li></ul></div>
+  </div>
+  <div class="box info"><div class="titolo">💡 Trucco facile</div>Parti da una frase e accorciala: «Il mio cane Fido ha 3 anni!» → <b>ImcFh3a!</b> Facile da ricordare per te, difficile da indovinare per gli altri.</div>
+
+  <h3>🎮 Prova: quanto è forte la tua password?</h3>
+  <p>Scrivi una password <b>inventata</b> (mai una vera!) e guarda quanto resiste.</p>
+  <div class="card">
+    <div class="field"><label>Password di prova</label><input id="pwd" oninput="valutaPassword()" placeholder="Scrivi qui una password inventata..." autocomplete="off"></div>
+    <div class="barra-pwd"><i id="pwdBar"></i></div>
+    <div id="pwdLabel" style="font-weight:700; margin-top:8px"></div>
+    <ul id="pwdTips" style="margin-top:10px; list-style:none; padding:0"></ul>
+  </div>
+
+  <h2>2. La privacy: non tutto si dice</h2>
+  <p>La <b class="kw" data-t="privacy">privacy</b> è il diritto di decidere chi può vedere i tuoi dati. Online lasciamo tracce: pensa bene prima di pubblicare indirizzo di casa, scuola, numero di telefono o foto.</p>
+  <div class="box warn"><div class="titolo">⚠️ Ricorda</div>Quello che metti online può restare per sempre e lo possono vedere anche persone che non conosci. Nel dubbio, <b>non pubblicarlo</b>.</div>
+
+  <h2>3. Attento alle trappole: il phishing</h2>
+  <p>Il <b class="kw" data-t="phishing">phishing</b> è un inganno: un messaggio o un sito finto che imita uno vero (la banca, le Poste, lo Stato) per farti dare password o dati. Ecco come smascherarlo:</p>
+  <div class="grid2">
+    <div class="card"><h3>🔎 Controlla l'indirizzo</h3><p>I siti ufficiali dello Stato finiscono in <b>.gov.it</b> o <b>.it</b>. Diffida di indirizzi strani, con errori o parole come "premio-gratis".</p></div>
+    <div class="card"><h3>🔒 Cerca il lucchetto</h3><p>Un sito protetto inizia con <b class="kw" data-t="https">https</b> e mostra un lucchetto. Attento però: il lucchetto da solo non basta, conta anche l'indirizzo giusto.</p></div>
+    <div class="card"><h3>⏰ Diffida della fretta</h3><p>«Paga subito o perdi tutto!» Le truffe ti mettono ansia per farti sbagliare. Gli enti veri non minacciano così.</p></div>
+    <div class="card"><h3>🎁 Se è troppo bello…</h3><p>Hai «vinto» un telefono senza aver fatto niente? È una trappola per rubarti i dati. Non ci cascare.</p></div>
+  </div>
+
+  <h2>🎮 Gioco: sito vero o trappola?</h2>
+  <p>Leggi ogni situazione e decidi: ti puoi fidare oppure è una trappola?</p>
+  <div class="card">
+    <div id="phishGame"></div>
+  </div>
+
+  <div class="box ok"><div class="titolo">🆘 Se sbagli o hai un dubbio</div>Niente panico: parlane subito con un <b>adulto di fiducia</b> (genitori, insegnanti). Cambiare una password o chiedere aiuto in tempo risolve quasi sempre il problema.</div>
+
+  <div class="verifica-mount" data-sez="sicurezza"></div>
+  <div class="next"><button class="btn" data-go="situazioni">Avanti → Situazioni reali</button></div>
+</section>
+
+<!-- ========== SITUAZIONI ========== -->
+<section class="page" id="page-situazioni">
+  <span class="eyebrow">Pagina 8</span>
+  <h1>Situazioni reali: il digitale aiuta o lascia indietro?</h1>
+  <p class="lead">Il digitale rende molte cose più facili e veloci. Ma chi non ha le <b class="kw" data-t="competenzedigitali">competenze digitali</b> rischia di essere <b>escluso</b> o costretto a fare tutto di persona. Vediamo dei casi veri.</p>
+
+  <h2>🎮 Scegli un cittadino e poi la sua strada</h2>
+  <div class="scenario-pick" id="scenarioPick">
+    <button class="btn ghost sel" data-sc="0">👵 Nonna Teresa, 78 anni</button>
+    <button class="btn ghost" data-sc="1">👨 Papà Marco, lavoratore</button>
+    <button class="btn ghost" data-sc="2">👩‍🎓 Studentessa Sara, 16 anni</button>
+  </div>
+  <div class="persona" id="persona"></div>
+  <div class="card">
+    <p style="margin-top:0">Per risolvere il suo problema, quale strada conviene? Clicca le due carte e confronta.</p>
+    <div class="scelta">
+      <div class="via digi" id="viaDigi" onclick="this.classList.toggle('aperta')"></div>
+      <div class="via fisic" id="viaFisic" onclick="this.classList.toggle('aperta')"></div>
+    </div>
+  </div>
+  <div class="box bad">
+    <div class="titolo">🚫 Il rischio: il "divario digitale"</div>
+    Quando un servizio esiste <b>solo</b> online, chi non sa usarlo resta tagliato fuori: si chiama <b class="kw" data-t="divariodigitale">divario digitale</b>. Per questo lo Stato tiene aperti anche gli sportelli e nascono i punti di aiuto.
+  </div>
+
+  <h2>Gli sportelli a cui rivolgersi nella vita di tutti i giorni</h2>
+  <p>Anche nell'era digitale, questi luoghi restano un punto di riferimento, soprattutto per chi ha bisogno di aiuto:</p>
+  <div class="sportelli">
+    <div class="sport">
+      <div class="h"><span class="e">🏛️</span> Il Comune (URP / Anagrafe)</div>
+      <ul><li>Carta d'identità</li><li>Certificati di nascita e residenza</li><li>Cambio di indirizzo</li></ul>
+    </div>
+    <div class="sport">
+      <div class="h"><span class="e">📮</span> L'ufficio postale</div>
+      <ul><li>Spedire lettere e pacchi</li><li>Pagare bollettini</li><li>Ritirare la pensione</li><li>Richiedere il passaporto</li></ul>
+    </div>
+    <div class="sport">
+      <div class="h"><span class="e">🏥</span> ASL / Sanità</div>
+      <ul><li>Scegliere il medico di famiglia</li><li>Prenotare visite ed esami</li><li>Tessera sanitaria</li></ul>
+    </div>
+    <div class="sport">
+      <div class="h"><span class="e">💶</span> Agenzia delle Entrate</div>
+      <ul><li>Codice fiscale e tessera</li><li>Tasse e rimborsi</li><li>Dati della casa</li></ul>
+    </div>
+    <div class="sport">
+      <div class="h"><span class="e">🧓</span> Patronato / CAF</div>
+      <ul><li>Aiuto a compilare le domande</li><li>Pensioni e bonus</li><li>Aiuto con SPID e identità digitale</li></ul>
+    </div>
+    <div class="sport">
+      <div class="h"><span class="e">🏦</span> La banca / Posta</div>
+      <ul><li>Aprire un conto</li><li>Gestire i risparmi</li><li>Carte e pagamenti</li></ul>
+    </div>
+  </div>
+  <div class="box ok">
+    <div class="titolo">🌟 La cittadinanza digitale fatta bene</div>
+    Un bravo cittadino digitale usa gli strumenti online <b>quando convengono</b>, sa tenere al sicuro la propria identità, e dà una mano a chi è in difficoltà (i nonni!). Il digitale è un aiuto in più, non un muro.
+  </div>
+  <div class="verifica-mount" data-sez="situazioni"></div>
+  <div class="foot-firma">
+    © 2026 <b>Scuola Sacra Famiglia</b> — Orzinuovi (BS)<br>
+    App didattica realizzata dall'Animatore Digitale <b>Andrea Cerioli</b>
+  </div>
+</section>
+
+</div></main>
+
+<!-- ============ MODAL GLOSSARIO ============ -->
+<div class="overlay" id="overlay" onclick="if(event.target===this)chiudiModal()">
+  <div class="modal">
+    <div class="mt"><span class="em" id="m-em">📘</span><h4 id="m-titolo"></h4></div>
+    <div class="def" id="m-def"></div>
+    <div class="es" id="m-es"></div>
+    <button class="btn chiudi" onclick="chiudiModal()">Ho capito 👍</button>
+  </div>
+</div>
+
+<script>
+/* ============ GLOSSARIO ============ */
+const glossario = {
+  servizipubblici:{em:"🏛️",t:"Servizi pubblici",d:"Sono i servizi offerti dallo Stato a tutti i cittadini, pagati con le tasse di tutti.",e:"La scuola, l'ospedale, gli autobus e la raccolta dei rifiuti sono servizi pubblici."},
+  cittadinanzadigitale:{em:"🌐",t:"Cittadinanza digitale",d:"È la capacità di usare in modo corretto e sicuro Internet e i servizi online per esercitare i propri diritti e doveri.",e:"Prenotare una visita medica dal sito dell'ospedale, invece di andare allo sportello."},
+  identitadigitale:{em:"🔐",t:"Identità digitale",d:"È l'insieme dei dati che dimostrano chi sei quando usi Internet. Funziona come la carta d'identità, ma online.",e:"Quando entri in un sito dello Stato con SPID o CIE, stai usando la tua identità digitale."},
+  evidenziata:{em:"💡",t:"Parole cliccabili",d:"In questa app le parole importanti sono scritte in blu: cliccandole si apre una spiegazione come questa.",e:"Hai appena cliccato una di queste parole. Provane altre nelle pagine!"},
+  identita:{em:"🪪",t:"Identità",d:"È l'insieme delle caratteristiche che ti rendono una persona unica e diversa da tutte le altre.",e:"Il tuo nome, il viso, la data di nascita e il codice fiscale fanno parte della tua identità."},
+  datipersonali:{em:"📋",t:"Dati personali",d:"Sono tutte le informazioni che riguardano una persona e permettono di riconoscerla.",e:"Nome, indirizzo, numero di telefono e foto sono dati personali: vanno protetti."},
+  codicefiscale:{em:"🔢",t:"Codice fiscale",d:"Un codice di 16 lettere e numeri che lo Stato dà a ogni persona per riconoscerla senza errori.",e:"Anche tu ce l'hai: è scritto sulla tessera sanitaria che hai in casa."},
+  documento:{em:"🪪",t:"Documento d'identità",d:"Una carta ufficiale, con foto e dati, che dimostra chi sei.",e:"La carta d'identità e il passaporto sono documenti d'identità."},
+  tesserasanitaria:{em:"💊",t:"Tessera sanitaria",d:"La carta che ti collega al Servizio Sanitario: sopra c'è il tuo codice fiscale.",e:"La mostri dal medico o in farmacia per avere le cure e le medicine."},
+  pubblicaamministrazione:{em:"🏛️",t:"Pubblica Amministrazione",d:"L'insieme degli uffici dello Stato che lavorano per i cittadini.",e:"Il Comune, la scuola, l'INPS e l'Agenzia delle Entrate fanno parte della PA."},
+  cartaidentita:{em:"💳",t:"Carta d'identità",d:"Il documento principale che dimostra chi sei, con foto, nome e data di nascita.",e:"La usi per salire su un aereo o per iscriverti a un'attività."},
+  furtoidentita:{em:"🎭",t:"Furto d'identità",d:"Quando qualcuno usa i tuoi dati fingendo di essere te, per ingannare gli altri.",e:"Un ladro con la foto della tua carta potrebbe aprire un abbonamento a tuo nome."},
+  biometria:{em:"🧬",t:"Dati biometrici",d:"Sono dati che riguardano il tuo corpo e sono unici per ogni persona.",e:"L'impronta del dito che sblocca il telefono è un dato biometrico."},
+  riconoscimentofacciale:{em:"😀",t:"Riconoscimento facciale",d:"Una tecnologia che riconosce una persona misurando la forma del suo viso.",e:"Quando guardi lo smartphone e si sblocca da solo, sta usando il riconoscimento facciale."},
+  accessosicuro:{em:"🔒",t:"Accesso sicuro",d:"Entrare in un luogo o in un sito solo dopo aver dimostrato di esserne autorizzati.",e:"Lo scanner dell'impronta all'ingresso di un ufficio garantisce un accesso sicuro."},
+  scanner:{em:"📡",t:"Scanner",d:"Un apparecchio che 'legge' qualcosa (un'impronta, un volto, un codice) e lo trasforma in dati.",e:"Lo scanner del supermercato legge il codice a barre dei prodotti."},
+  spid:{em:"🆔",t:"SPID",d:"Sistema Pubblico di Identità Digitale: un nome utente e una password unici per entrare in tutti i siti pubblici.",e:"Con un solo SPID entri nel sito della scuola, dell'INPS e del Comune."},
+  cie:{em:"💳",t:"CIE — Carta d'Identità Elettronica",d:"La carta d'identità con un microchip dentro, che funziona anche come chiave digitale.",e:"Avvicinandola allo smartphone, la CIE ti fa entrare nei siti dello Stato."},
+  qrcode:{em:"▦",t:"Codice QR",d:"Un quadrato di puntini bianchi e neri che nasconde un'informazione, letta dalla fotocamera.",e:"Inquadri il QR del menù al ristorante e si apre la lista dei piatti."},
+  codicebinario:{em:"0️⃣",t:"Informazione a quadratini",d:"Il QR memorizza i dati usando tanti piccoli quadrati: nero o bianco, come acceso o spento.",e:"Più quadratini ci sono, più informazioni il codice può contenere."},
+  codiceabarre:{em:"|||",t:"Codice a barre",d:"Le righe verticali nere sui prodotti: contengono un numero che identifica l'oggetto.",e:"Alla cassa lo scanner legge il codice a barre e trova il prezzo."},
+  cieid:{em:"📱",t:"CieID",d:"L'app ufficiale che usa la tua Carta d'Identità Elettronica per farti entrare nei siti pubblici.",e:"Apri CieID, inquadri il QR del sito e avvicini la carta: sei dentro."},
+  competenzedigitali:{em:"🧠",t:"Competenze digitali",d:"Le capacità di usare bene e in sicurezza computer, smartphone e Internet.",e:"Saper riconoscere un sito ufficiale da uno falso è una competenza digitale."},
+  divariodigitale:{em:"↔️",t:"Divario digitale",d:"La distanza tra chi sa usare il digitale e chi no, che rischia di restare escluso dai servizi.",e:"Un anziano senza smartphone non riesce a prenotare online: è vittima del divario digitale."},
+  truffaonline:{em:"🪤",t:"Trappola online",d:"Un inganno su Internet costruito per rubarti dati, password o soldi.",e:"Un finto messaggio delle Poste che ti chiede di pagare per sbloccare un pacco."},
+  password:{em:"🔑",t:"Password",d:"La parola segreta che dimostra che un account è davvero tuo. Va tenuta nascosta.",e:"Per entrare nella tua email scrivi la password: se è forte, nessuno entra al posto tuo."},
+  privacy:{em:"🙈",t:"Privacy",d:"Il diritto di decidere chi può vedere e usare i tuoi dati personali.",e:"Non pubblicare online il tuo indirizzo di casa: è una scelta di privacy."},
+  phishing:{em:"🎣",t:"Phishing",d:"Una truffa che usa messaggi o siti finti, copiati da quelli veri, per 'pescare' i tuoi dati.",e:"Un'email che sembra della banca ma ti porta a un sito falso per rubarti la password."},
+  https:{em:"🔒",t:"https",d:"Le lettere all'inizio dell'indirizzo di un sito protetto: i dati viaggiano in modo cifrato.",e:"Prima di inserire dati, controlla che ci sia 'https' e il lucchetto nell'indirizzo."}
+};
+function apriModal(key){
+  const g = glossario[key]; if(!g) return;
+  document.getElementById('m-em').textContent = g.em;
+  document.getElementById('m-titolo').textContent = g.t;
+  document.getElementById('m-def').textContent = g.d;
+  document.getElementById('m-es').innerHTML = '<b>Esempio:</b> ' + g.e;
+  document.getElementById('overlay').classList.add('on');
+}
+function chiudiModal(){ document.getElementById('overlay').classList.remove('on'); }
+document.addEventListener('click', e=>{
+  const k = e.target.closest('.kw');
+  if(k && k.dataset.t) apriModal(k.dataset.t);
+});
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') chiudiModal(); });
+
+/* ============ NAVIGAZIONE ============ */
+const pagine = ['home','identita','biometria','digitale','codicefiscale','qrcode','cieid','sicurezza','situazioni'];
+let pagAttuale = 'home';
+function vai(id){
+  pagine.forEach(p=>{
+    document.getElementById('page-'+p).classList.toggle('attiva', p===id);
+  });
+  document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('attiva', a.dataset.go===id));
+  window.scrollTo({top:0, behavior:'smooth'});
+  document.querySelector('.main').scrollTop = 0;
+  pagAttuale = id;
+  preparaSegno(id);
+  if(id==='qrcode') generaQR();
+  if(id==='cieid') disegnaCieQR();
+  if(id==='sicurezza') startPhish();
+  if(id==='situazioni') caricaScenario(scenarioAttivo);
+}
+document.addEventListener('click', e=>{
+  const b = e.target.closest('[data-go]');
+  if(b){ e.preventDefault(); vai(b.dataset.go); }
+});
+
+/* ============ QUIZ DATI (pag. identità) ============ */
+const datiQuiz = [
+  {txt:"Codice fiscale", id:true},
+  {txt:"Colore preferito", id:false},
+  {txt:"Nome e cognome + data di nascita", id:true},
+  {txt:"Squadra del cuore", id:false},
+  {txt:"Impronta digitale", id:true},
+  {txt:"Cibo che ti piace", id:false},
+  {txt:"Numero della carta d'identità", id:true},
+  {txt:"Solo il nome di battesimo", id:false}
+];
+function buildDati(){
+  const c = document.getElementById('dati-quiz'); c.innerHTML='';
+  datiQuiz.forEach((d,i)=>{
+    const s = document.createElement('span');
+    s.className='tag'; s.style.cursor='pointer'; s.dataset.i=i; s.textContent=d.txt;
+    s.onclick=()=>{ s.classList.toggle('blu'); s.dataset.on = s.classList.contains('blu')?'1':''; };
+    c.appendChild(s);
+  });
+}
+function controllaDati(){
+  let giusti=0, tot=0;
+  document.querySelectorAll('#dati-quiz .tag').forEach(s=>{
+    const d = datiQuiz[s.dataset.i]; const scelto = s.dataset.on==='1';
+    if(d.id) tot++;
+    if(scelto===d.id) giusti++;
+    s.style.outline = (scelto && d.id)?'3px solid #1f7a4d':(scelto && !d.id)?'3px solid #c8102e':'none';
+  });
+  const ok = giusti===datiQuiz.length;
+  document.getElementById('dati-esito').innerHTML =
+    `<div class="box ${ok?'ok':'warn'}"><div class="titolo">${ok?'🎉 Perfetto!':'🔎 Quasi!'}</div>
+     ${ok?'Hai scelto proprio i dati che identificano una persona con certezza.':'I dati che identificano davvero sono quelli unici: codice fiscale, impronta, numero della carta, oppure nome+cognome+data di nascita insieme. Il colore o il cibo preferito li hanno in tanti!'}</div>`;
+}
+function resetDati(){ buildDati(); document.getElementById('dati-esito').innerHTML=''; }
+buildDati();
+
+/* ============ SCANNER BIOMETRICO ============ */
+const bioIco = {impronta:'👆', volto:'😀', iride:'👁️'};
+let bioSel='impronta';
+document.getElementById('bioPick').addEventListener('click', e=>{
+  const o = e.target.closest('.opt'); if(!o) return;
+  document.querySelectorAll('#bioPick .opt').forEach(x=>x.classList.remove('sel'));
+  o.classList.add('sel'); bioSel=o.dataset.bio;
+  if(!document.getElementById('scanner').classList.contains('scanning'))
+    document.getElementById('scanIcon').textContent = bioIco[bioSel];
+});
+function avviaScan(){
+  const sc=document.getElementById('scanner'), bar=document.getElementById('scanBar'),
+        stato=document.getElementById('scanStato'), door=document.getElementById('scanDoor'),
+        btn=document.getElementById('btnScan');
+  const impostore = document.getElementById('impostore').checked;
+  sc.classList.remove('ok','no'); door.textContent=''; btn.disabled=true;
+  sc.classList.add('scanning');
+  document.getElementById('scanIcon').textContent = bioIco[bioSel];
+  stato.textContent='Scansione in corso…'; bar.style.width='0';
+  let p=0;
+  const it=setInterval(()=>{
+    p+=4; bar.style.width=p+'%';
+    if(p>=100){
+      clearInterval(it); sc.classList.remove('scanning');
+      if(impostore){
+        sc.classList.add('no'); document.getElementById('scanIcon').textContent='⛔';
+        stato.textContent='ACCESSO NEGATO'; door.innerHTML='🔒 Dato non riconosciuto: la porta resta chiusa.';
+      } else {
+        sc.classList.add('ok'); document.getElementById('scanIcon').textContent='✅';
+        stato.textContent='ACCESSO CONSENTITO'; door.innerHTML='🚪 Identità confermata: la porta si apre!';
+      }
+      btn.disabled=false;
+    }
+  },45);
+}
+
+/* ============ CODICE FISCALE ============ */
+const mesiCF = ['A','B','C','D','E','H','L','M','P','R','S','T'];
+function consonanti(s){ return s.replace(/[^a-z]/gi,'').toUpperCase().replace(/[AEIOU]/g,''); }
+function vocali(s){ return s.replace(/[^a-z]/gi,'').toUpperCase().replace(/[^AEIOU]/g,''); }
+function codCognome(s){ let c=consonanti(s)+vocali(s)+'XXX'; return c.substring(0,3); }
+function codNome(s){
+  const co=consonanti(s);
+  if(co.length>=4) return co[0]+co[2]+co[3];
+  let c=co+vocali(s)+'XXX'; return c.substring(0,3);
+}
+const oddMap={'0':1,'1':0,'2':5,'3':7,'4':9,'5':13,'6':15,'7':17,'8':19,'9':21,'A':1,'B':0,'C':5,'D':7,'E':9,'F':13,'G':15,'H':17,'I':19,'J':21,'K':2,'L':4,'M':18,'N':20,'O':11,'P':3,'Q':6,'R':8,'S':12,'T':14,'U':16,'V':10,'W':22,'X':25,'Y':24,'Z':23};
+function evenVal(ch){ return /[0-9]/.test(ch)? +ch : ch.charCodeAt(0)-65; }
+function controlloCF(c15){
+  let s=0;
+  for(let i=0;i<15;i++){ const ch=c15[i]; s += (i%2===0)? oddMap[ch] : evenVal(ch); }
+  return String.fromCharCode(65 + (s%26));
+}
+function generaCF(){
+  const cog=document.getElementById('cf-cognome').value.trim();
+  const nom=document.getElementById('cf-nome').value.trim();
+  const data=document.getElementById('cf-data').value;
+  const sex=document.getElementById('cf-sesso').value;
+  const com=document.getElementById('cf-comune').value;
+  if(!cog||!nom||!data){ alert('Compila cognome, nome e data di nascita!'); return; }
+  const d=new Date(data);
+  const anno=String(d.getFullYear()).slice(-2);
+  const mese=mesiCF[d.getMonth()];
+  let giorno=d.getDate(); if(sex==='F') giorno+=40;
+  const gg=String(giorno).padStart(2,'0');
+  const p1=codCognome(cog), p2=codNome(nom);
+  const c15 = p1+p2+anno+mese+gg+com;
+  const ctrl = controlloCF(c15);
+  const cf = c15+ctrl;
+  document.getElementById('cf-out').textContent = cf;
+  document.getElementById('cf-break').innerHTML =
+    `<span>Cognome<b>${p1}</b></span><span>Nome<b>${p2}</b></span><span>Anno<b>${anno}</b></span>
+     <span>Mese<b>${mese}</b></span><span>Giorno<b>${gg}</b></span><span>Comune<b>${com}</b></span>
+     <span>Controllo<b>${ctrl}</b></span>`;
+  document.getElementById('cf-box').style.display='block';
+}
+
+/* ============ GENERATORE QR ============ */
+let qrObj=null;
+function generaQR(){
+  const txt=document.getElementById('qr-text').value.trim() || 'Ciao!';
+  const box=document.getElementById('qrcode'); box.innerHTML='';
+  qrObj=new QRCode(box,{text:txt, width:200, height:200, correctLevel:QRCode.CorrectLevel.M});
+  document.getElementById('qr-info').textContent='Contenuto: '+txt;
+}
+function scaricaQR(){
+  const img=document.querySelector('#qrcode img')||document.querySelector('#qrcode canvas');
+  if(!img){ generaQR(); return; }
+  const src = img.tagName==='IMG'? img.src : img.toDataURL('image/png');
+  const a=document.createElement('a'); a.href=src; a.download='qrcode.png'; a.click();
+}
+
+/* ============ CIEID — SMARTPHONE ============ */
+function disegnaCieQR(){
+  const box=document.getElementById('cie-qr'); if(!box) return; box.innerHTML='';
+  new QRCode(box,{text:'https://servizi.gov.it/sessione/AX9F-2C7D-2026', width:130, height:130, correctLevel:QRCode.CorrectLevel.M});
+}
+function scanQRPhone(){
+  const ph=document.getElementById('phone'), hint=document.getElementById('phHint'),
+        done=document.getElementById('phDone'), btn=document.getElementById('btnPhone'),
+        site=document.getElementById('siteStatus'), frameTxt=document.getElementById('phFrameTxt');
+  ph.classList.add('scanning'); btn.disabled=true; done.classList.remove('on');
+  frameTxt.textContent=''; hint.textContent='Inquadrando il codice QR…';
+  site.textContent='⏳ In attesa della conferma dal telefono…'; site.style.color='var(--grigio)';
+  setTimeout(()=>{
+    hint.textContent='Avvicina la carta e digita il PIN…';
+    site.textContent='🔄 Lettura della Carta d\'Identità Elettronica…';
+  },1300);
+  setTimeout(()=>{
+    ph.classList.remove('scanning'); done.classList.add('on');
+    hint.textContent='';
+    site.innerHTML='✅ Identità verificata: <b>accesso consentito</b>'; site.style.color='var(--verde)';
+    btn.disabled=false;
+  },2800);
+}
+function resetPhone(){
+  document.getElementById('phone').classList.remove('scanning');
+  document.getElementById('phDone').classList.remove('on');
+  document.getElementById('phFrameTxt').textContent='📷';
+  document.getElementById('phHint').textContent='Premi il pulsante per inquadrare';
+  const site=document.getElementById('siteStatus');
+  site.textContent='In attesa di accesso…'; site.style.color='var(--grigio)';
+}
+
+/* ============ SITUAZIONI REALI ============ */
+const scenari=[
+  {av:'👵', nome:'Nonna Teresa, 78 anni', prob:'Deve prenotare una visita dal cardiologo.',
+   digi:{t:'💻 Online (con aiuto del nipote)', p:['Il nipote entra nel sito della sanità con SPID','Sceglie data e ora della visita','Riceve la conferma sul telefono'], esito:'✅ Fatto in 5 minuti da casa, ma solo grazie all\'aiuto di qualcuno.', col:'var(--verde)'},
+   fisic:{t:'🚶 Allo sportello (CUP)', p:['Esce di casa e prende l\'autobus','Aspetta in fila al CUP dell\'ospedale','Prenota e torna a casa'], esito:'⏱️ Mezza giornata persa; faticoso ma non serve sapere usare il computer.', col:'var(--giallo)'}},
+  {av:'👨', nome:'Papà Marco, lavoratore', prob:'Gli serve un certificato di residenza per il lavoro.',
+   digi:{t:'💻 Online', p:['Entra nel sito del Comune con CIE','Clicca "Certificato di residenza"','Scarica subito il PDF'], esito:'✅ 2 minuti in pausa pranzo, gratis e senza spostarsi.', col:'var(--verde)'},
+   fisic:{t:'🚶 Allo sportello', p:['Chiede un permesso al lavoro','Va al Comune negli orari di apertura','Fa la fila e ritira il foglio'], esito:'⏱️ Ore di lavoro perse e orari limitati.', col:'var(--giallo)'}},
+  {av:'👩‍🎓', nome:'Studentessa Sara, 16 anni', prob:'Vuole iscriversi a un concorso e scaricare un certificato scolastico.',
+   digi:{t:'💻 Online (registro elettronico)', p:['Entra nel registro con le sue credenziali','Apre la sezione documenti','Scarica il certificato in un attimo'], esito:'✅ Immediato, dal telefono, ovunque si trovi.', col:'var(--verde)'},
+   fisic:{t:'🚶 In segreteria', p:['Va in segreteria nell\'orario di ricevimento','Chiede il certificato','Aspetta che venga preparato'], esito:'⏱️ Deve esserci di persona e negli orari giusti.', col:'var(--giallo)'}}
+];
+let scenarioAttivo=0;
+function caricaScenario(i){
+  scenarioAttivo=i; const s=scenari[i];
+  document.getElementById('persona').innerHTML=`<div class="av">${s.av}</div><div><b>${s.nome}</b><br>${s.prob}</div>`;
+  const vd=document.getElementById('viaDigi'), vf=document.getElementById('viaFisic');
+  vd.classList.remove('aperta'); vf.classList.remove('aperta');
+  vd.innerHTML=`<h3>${s.digi.t}</h3><p style="font-size:.9rem;color:var(--grigio)">Clicca per vedere i passaggi</p>
+    <div class="esito"><ul class="steps">${s.digi.p.map(x=>`<li>${x}</li>`).join('')}</ul><b style="color:${s.digi.col}">${s.digi.esito}</b></div>`;
+  vf.innerHTML=`<h3>${s.fisic.t}</h3><p style="font-size:.9rem;color:var(--grigio)">Clicca per vedere i passaggi</p>
+    <div class="esito"><ul class="steps">${s.fisic.p.map(x=>`<li>${x}</li>`).join('')}</ul><b style="color:${s.fisic.col}">${s.fisic.esito}</b></div>`;
+}
+document.getElementById('scenarioPick').addEventListener('click', e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  document.querySelectorAll('#scenarioPick button').forEach(x=>x.classList.remove('sel'));
+  b.classList.add('sel'); caricaScenario(+b.dataset.sc);
+});
+
+/* ============ SICUREZZA: forza password ============ */
+function valutaPassword(){
+  const v=document.getElementById('pwd').value;
+  const bar=document.getElementById('pwdBar'), lab=document.getElementById('pwdLabel'), ul=document.getElementById('pwdTips');
+  let s=0; const tips=[];
+  if(v.length>=8) s++; else tips.push('🔸 Falla più lunga: almeno 8 caratteri');
+  if(/[A-Z]/.test(v)) s++; else tips.push('🔸 Aggiungi una LETTERA MAIUSCOLA');
+  if(/[a-z]/.test(v)) s++; else tips.push('🔸 Aggiungi una lettera minuscola');
+  if(/[0-9]/.test(v)) s++; else tips.push('🔸 Aggiungi un numero');
+  if(/[^A-Za-z0-9]/.test(v)) s++; else tips.push('🔸 Aggiungi un simbolo (es. ! ? - @)');
+  if(v.length===0){ bar.style.width='0'; lab.textContent=''; ul.innerHTML=''; return; }
+  const livelli=[['Molto debole','#c8102e'],['Debole','#e8590c'],['Media','#f0a500'],['Buona','#2f9e44'],['Forte','#1f7a4d'],['Fortissima 💪','#0f5c3a']];
+  bar.style.width=(s/5*100)+'%'; bar.style.background=livelli[s][1];
+  lab.textContent='Sicurezza: '+livelli[s][0]; lab.style.color=livelli[s][1];
+  ul.innerHTML = tips.length ? ('<b>Per renderla più forte:</b>'+tips.map(t=>`<li>${t}</li>`).join('')) : '<li>✅ Ottimo! Questa password è davvero robusta.</li>';
+}
+
+/* ============ SICUREZZA: gioco phishing ============ */
+const phishDati=[
+  {sit:"🌐 Per il codice fiscale apri il sito  https://www.agenziaentrate.gov.it", safe:true, spieg:"Sicuro: finisce in .gov.it, è il sito ufficiale dello Stato."},
+  {sit:"📩 SMS: «Il tuo pacco è bloccato. Paga 1,99€ qui: http://post-itali4.com/sblocca»", safe:false, spieg:"Trappola! Indirizzo strano e con errori, e ti chiede di pagare in fretta."},
+  {sit:"📧 Email: «La tua password scade tra 1 ora. Confermala QUI o perdi l'account!»", safe:false, spieg:"Trappola! Fretta e minaccia: gli enti veri non chiedono la password così."},
+  {sit:"🏛️ Per un certificato apri  https://www.comune.orzinuovi.bs.it", safe:true, spieg:"Sicuro: è il sito ufficiale del Comune, con indirizzo corretto in .it."},
+  {sit:"🎁 Banner: «Hai VINTO un iPhone! Inserisci nome, indirizzo e password per ritirarlo»", safe:false, spieg:"Trappola! Premi finti per rubare i tuoi dati: non hai partecipato a niente."},
+  {sit:"📱 Inquadri il QR stampato sul cartellone ufficiale in stazione per gli orari dei treni", safe:true, spieg:"Di solito sicuro, ma controlla comunque l'indirizzo che si apre dopo la scansione."}
+];
+let phishI=0, phishOk=0;
+function startPhish(){ phishI=0; phishOk=0; mostraPhish(); }
+function mostraPhish(){
+  const g=document.getElementById('phishGame'); if(!g) return;
+  if(phishI>=phishDati.length){
+    g.innerHTML=`<div class="quiz-score full" style="display:block">Hai riconosciuto ${phishOk}/${phishDati.length} situazioni! ${phishOk===phishDati.length?'🎉 Sei un vero detective del web!':'👍 Bravo, continua ad allenare l\'occhio.'}</div>
+      <div style="text-align:center"><button class="btn ghost" style="margin-top:12px" onclick="startPhish()">↺ Gioca ancora</button></div>`;
+    return;
+  }
+  const d=phishDati[phishI];
+  g.innerHTML=`<div class="phish-prog">Situazione ${phishI+1} di ${phishDati.length} &nbsp;·&nbsp; punti: ${phishOk}</div>
+    <div class="phish-q">${d.sit}</div>
+    <div class="phish-btns">
+      <button class="btn" onclick="phishRisp(true)">✅ Mi fido</button>
+      <button class="btn blu" onclick="phishRisp(false)">🚫 È una trappola</button>
+    </div>
+    <div class="phish-fb" id="phishFb"></div>`;
+}
+function phishRisp(scelta){
+  const d=phishDati[phishI], fb=document.getElementById('phishFb');
+  const giusto = (scelta===d.safe);
+  if(giusto) phishOk++;
+  document.querySelectorAll('.phish-btns button').forEach(b=>b.disabled=true);
+  fb.style.display='block';
+  fb.style.background = giusto?'#e7f7ec':'#fdeff1';
+  fb.style.borderLeft = '4px solid '+(giusto?'#1f7a4d':'#c8102e');
+  fb.innerHTML = (giusto?'✅ <b>Esatto!</b> ':'❌ <b>Attenzione!</b> ')+d.spieg+
+    `<div style="margin-top:10px"><button class="btn" onclick="phishI++; mostraPhish()">Avanti →</button></div>`;
+}
+
+/* ============ VERIFICHE (quiz per sezione) ============ */
+const verifiche = {
+  identita:{ titolo:"L'identità", domande:[
+    {tipo:'mc', q:"Perché il nome e cognome da soli non bastano a identificare con certezza una persona?",
+      opzioni:["Perché sono troppo lunghi da scrivere","Perché molte persone possono avere lo stesso nome e cognome","Perché cambiano ogni anno","Perché non sono dati personali"], giusta:1,
+      spieg:"Esatto: i 'Marco Rossi' sono migliaia. Servono dati unici come il codice fiscale."},
+    {tipo:'hottext', q:"Clicca SOLO i dati che identificano una persona in modo unico e sicuro.",
+      tokens:[{txt:"Codice fiscale",ok:true},{txt:"Colore preferito",ok:false},{txt:"Numero della carta d'identità",ok:true},{txt:"Squadra del cuore",ok:false},{txt:"Impronta digitale",ok:true},{txt:"Cibo preferito",ok:false}],
+      spieg:"I dati unici sono codice fiscale, numero del documento e impronta. I gusti personali li hanno in tanti."},
+    {tipo:'tf', q:"Puoi inviare la foto della tua carta d'identità a uno sconosciuto che te la chiede online.",
+      giusta:false, spieg:"Mai! Con quella foto qualcuno potrebbe rubare la tua identità."}
+  ]},
+  biometria:{ titolo:"I dati biometrici", domande:[
+    {tipo:'ms', q:"Quali di questi sono dati biometrici? (più di una risposta)",
+      opzioni:["Impronta digitale","La tua password","Il volto","L'iride dell'occhio","Il numero di telefono"], giuste:[0,2,3],
+      spieg:"Sono biometrici i dati del corpo: impronta, volto e iride. Password e telefono no."},
+    {tipo:'match', q:"Collega ogni dato biometrico alla sua descrizione.",
+      coppie:[["Impronta digitale","Il disegno di linee sul polpastrello"],["Volto","La forma del viso e la distanza tra gli occhi"],["Iride","L'anello colorato attorno alla pupilla"]],
+      spieg:"Ogni dato biometrico misura una parte unica del corpo."},
+    {tipo:'mc', q:"Perché i dati biometrici sono più delicati di una password?",
+      opzioni:["Perché sono più lenti da leggere","Perché non puoi cambiarli se vengono rubati","Perché costano molti soldi","Perché funzionano solo di giorno"], giusta:1,
+      spieg:"Una password la cambi; il tuo volto o la tua impronta no: per questo vanno protetti benissimo."}
+  ]},
+  digitale:{ titolo:"Identità digitale & PA", domande:[
+    {tipo:'cat', q:"Metti ogni ente nella colonna giusta.",
+      categorie:["È Pubblica Amministrazione","NON è Pubblica Amministrazione"],
+      items:[{txt:"Il Comune",cat:0},{txt:"La pizzeria sotto casa",cat:1},{txt:"L'ospedale",cat:0},{txt:"Un negozio di scarpe",cat:1},{txt:"La scuola",cat:0}],
+      spieg:"La PA sono gli enti dello Stato: Comune, scuola, ospedale. I negozi privati no."},
+    {tipo:'fill', q:"Completa la frase scegliendo dal menù.",
+      frase:"Lo {0} è un nome utente e una password unici per i siti pubblici, mentre la {1} è la carta d'identità con un microchip dentro.",
+      blanks:[{opzioni:["SPID","CIE"],giusta:"SPID"},{opzioni:["SPID","CIE"],giusta:"CIE"}],
+      spieg:"SPID = credenziali; CIE = la carta fisica con il chip."},
+    {tipo:'tf', q:"Con l'identità digitale puoi scaricare un certificato da casa, senza andare allo sportello.",
+      giusta:true, spieg:"Proprio così: in pochi minuti, gratis e a qualsiasi ora."}
+  ]},
+  codicefiscale:{ titolo:"Il codice fiscale", domande:[
+    {tipo:'order', q:"Rimetti in ordine i pezzi che formano il codice fiscale (dall'inizio alla fine).",
+      items:["3 lettere dal cognome","3 lettere dal nome","2 cifre dell'anno","1 lettera del mese","2 cifre del giorno","4 caratteri del comune","1 lettera di controllo"],
+      spieg:"L'ordine è: cognome, nome, anno, mese, giorno, comune e infine la lettera di controllo."},
+    {tipo:'mc', q:"A cosa serve l'ultima lettera del codice fiscale?",
+      opzioni:["A indicare il comune","A controllare che il codice sia scritto giusto","A dire se sei maschio o femmina","Non serve a niente"], giusta:1,
+      spieg:"È calcolata dalle altre 15: se sbagli a copiare il codice, non torna e il computer se ne accorge."},
+    {tipo:'fill', q:"Completa la regola sul giorno di nascita.",
+      frase:"Per le persone di sesso femminile, al giorno di nascita si aggiunge il numero {0}.",
+      blanks:[{opzioni:["10","20","40","100"],giusta:"40"}],
+      spieg:"Per le femmine: giorno + 40. Così dal codice si capisce anche il sesso."}
+  ]},
+  qrcode:{ titolo:"I codici QR", domande:[
+    {tipo:'tf', q:"Un codice QR si può leggere anche se lo inquadri storto o capovolto.",
+      giusta:true, spieg:"Sì: i tre quadrati agli angoli dicono alla fotocamera come è girato."},
+    {tipo:'ms', q:"Cosa può contenere un codice QR? (più di una risposta)",
+      opzioni:["L'indirizzo di un sito","Un breve testo","Un profumo","Un comando per il telefono"], giuste:[0,1,3],
+      spieg:"Un QR contiene informazioni digitali (link, testo, comandi), non odori!"},
+    {tipo:'mc', q:"Trovi un QR sconosciuto attaccato a un palo per strada. Cosa fai?",
+      opzioni:["Lo inquadro subito, sarà una sorpresa","Non lo inquadro: potrebbe portare a un sito pericoloso","Lo strappo e lo butto","Lo inquadro e inserisco la mia password"], giusta:1,
+      spieg:"Bravo: non sai dove porta un QR finché non lo apri. Meglio diffidare di quelli sconosciuti."}
+  ]},
+  cieid:{ titolo:"La CieID", domande:[
+    {tipo:'order', q:"Rimetti in ordine i passaggi per accedere a un sito con la CieID.",
+      items:["Sul computer clicchi 'Entra con CIE'","Il sito mostra un codice QR","Inquadri il QR con l'app CieID","Avvicini la carta al telefono e digiti il PIN","Il sito ti riconosce e ti fa entrare"],
+      spieg:"Prima il sito mostra il QR, poi il telefono lo legge, infine la carta + PIN confermano chi sei."},
+    {tipo:'mc', q:"A cosa serve il QR nell'accesso con la CieID?",
+      opzioni:["A fare una foto ricordo","A collegare in modo sicuro il computer e il telefono","A pagare l'accesso","A spegnere lo schermo"], giusta:1,
+      spieg:"Il QR è un ponte sicuro e temporaneo tra il computer (dove entri) e il telefono (che ha la tua identità)."},
+    {tipo:'tf', q:"Per accedere con la CIE bastano la carta e il suo PIN segreto.",
+      giusta:true, spieg:"Serve avere la carta da avvicinare al telefono e conoscere il PIN: due cose insieme, più sicuro."}
+  ]},
+  sicurezza:{ titolo:"Proteggi l'identità", domande:[
+    {tipo:'mc', q:"Quale di queste è la password più sicura?",
+      opzioni:["1234","ciaociao","La mia password","Tr3no-Giallo!88"], giusta:3,
+      spieg:"La più forte è lunga e mescola maiuscole, minuscole, numeri e simboli."},
+    {tipo:'ms', q:"Quali sono segnali di una trappola (phishing)? (più di una risposta)",
+      opzioni:["Ti mette fretta e ti minaccia","L'indirizzo è strano o pieno di errori","Ti promette un premio se inserisci i tuoi dati","Il sito finisce in .gov.it ufficiale"], giuste:[0,1,2],
+      spieg:"Fretta, indirizzi strani e premi sospetti sono segnali di truffa. Il .gov.it ufficiale invece è sicuro."},
+    {tipo:'tf', q:"Va bene dire la tua password al tuo migliore amico, di cui ti fidi.",
+      giusta:false, spieg:"No: una password si tiene per sé, sempre. Più persone la conoscono, meno è segreta."}
+  ]},
+  situazioni:{ titolo:"Situazioni reali", domande:[
+    {tipo:'cat', q:"A quale sportello ti rivolgi? Metti ogni cosa al posto giusto.",
+      categorie:["Comune / Anagrafe","Ufficio postale"],
+      items:[{txt:"Rinnovare la carta d'identità",cat:0},{txt:"Spedire un pacco",cat:1},{txt:"Certificato di residenza",cat:0},{txt:"Ritirare la pensione",cat:1},{txt:"Pagare un bollettino",cat:1}],
+      spieg:"Documenti e certificati → Comune. Pacchi, pensione e bollettini → Posta."},
+    {tipo:'mc', q:"Che cos'è il 'divario digitale'?",
+      opzioni:["La distanza fisica tra due computer","Quando chi non sa usare il digitale resta escluso dai servizi","Un tipo di password","Il nome di un'app dello Stato"], giusta:1,
+      spieg:"È il rischio che chi non ha competenze digitali venga lasciato indietro. Per questo restano gli sportelli."},
+    {tipo:'match', q:"Collega ogni cittadino al suo bisogno.",
+      coppie:[["Nonna Teresa","Prenotare una visita dal cardiologo"],["Papà Marco","Un certificato di residenza per il lavoro"],["Studentessa Sara","Un certificato scolastico per un concorso"]],
+      spieg:"Ognuno ha un bisogno diverso, e il digitale può aiutare… se sai usarlo."}
+  ]}
+};
+
+function mescola(a){ const b=a.slice(); for(let i=b.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [b[i],b[j]]=[b[j],b[i]]; } return b; }
+
+function renderDomanda(sez,d,i){
+  const id=`qc-${sez}-${i}`;
+  const tipoLabel={mc:'Scelta multipla',tf:'Vero o Falso',ms:'Più risposte',fill:'Completa',match:'Collega',order:'Riordina',cat:'Categorizza',hottext:'Testo da cliccare'}[d.tipo]||'';
+  let corpo='';
+  if(d.tipo==='mc'){
+    corpo = d.opzioni.map((o,k)=>`<label class="opt"><input type="radio" name="${id}" value="${k}"> ${o}</label>`).join('');
+  } else if(d.tipo==='tf'){
+    corpo = `<label class="opt"><input type="radio" name="${id}" value="true"> ✅ Vero</label>`+
+            `<label class="opt"><input type="radio" name="${id}" value="false"> ❌ Falso</label>`;
+  } else if(d.tipo==='ms'){
+    corpo = d.opzioni.map((o,k)=>`<label class="opt"><input type="checkbox" value="${k}"> ${o}</label>`).join('');
+  } else if(d.tipo==='hottext'){
+    corpo = `<div>${d.tokens.map((t,k)=>`<span class="chip" data-k="${k}" onclick="this.classList.toggle('sel')">${t.txt}</span>`).join('')}</div>`;
+  } else if(d.tipo==='fill'){
+    let f=d.frase;
+    d.blanks.forEach((b,k)=>{
+      const sel=`<select class="fillsel" data-k="${k}"><option value="">— scegli —</option>${mescola(b.opzioni).map(o=>`<option value="${o}">${o}</option>`).join('')}</select>`;
+      f=f.replace('{'+k+'}', sel);
+    });
+    corpo = `<div class="frase">${f}</div>`;
+  } else if(d.tipo==='order'){
+    const lista=mescola(d.items.map((t,k)=>({t,id:k})));
+    corpo = `<ul class="ord">${lista.map(o=>`<li data-id="${o.id}"><span>${o.t}</span><span class="ordbtns"><button type="button" onclick="ordMove(this,-1)" title="Su">▲</button><button type="button" onclick="ordMove(this,1)" title="Giù">▼</button></span></li>`).join('')}</ul>`;
+  } else if(d.tipo==='match'){
+    const destra=mescola(d.coppie.map((c,k)=>({txt:c[1],id:k})));
+    corpo = d.coppie.map((c,k)=>`<div class="match-row"><span class="ml">${c[0]}</span> →
+      <select class="matchsel" data-k="${k}"><option value="">— scegli —</option>${destra.map(o=>`<option value="${o.id}">${o.txt}</option>`).join('')}</select></div>`).join('');
+  } else if(d.tipo==='cat'){
+    corpo = d.items.map((it,k)=>`<div class="cat-item" data-i="${k}" data-cat=""><span>${it.txt}</span>
+      <span class="cat-pick">${d.categorie.map((c,ci)=>`<button type="button" class="catb" data-cat="${ci}" onclick="catSel(this)">${c}</button>`).join('')}</span></div>`).join('');
+  }
+  return `<div class="q-card" id="${id}" data-tipo="${d.tipo}">
+    <div class="q-text"><span class="badge">${tipoLabel}</span><span class="qn">${i+1}</span>${d.q}</div>
+    ${corpo}
+    <div class="q-fb"></div>
+  </div>`;
+}
+
+function catSel(btn){
+  const item=btn.closest('.cat-item');
+  item.querySelectorAll('.catb').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+  item.dataset.cat=btn.dataset.cat;
+}
+function ordMove(btn,dir){
+  const li=btn.closest('li'), ul=li.parentNode;
+  if(dir<0 && li.previousElementSibling) ul.insertBefore(li, li.previousElementSibling);
+  if(dir>0 && li.nextElementSibling) ul.insertBefore(li.nextElementSibling, li);
+}
+function arrUguali(a,b){ a=a.slice().sort(); b=b.slice().sort(); return a.length===b.length && a.every((v,i)=>v===b[i]); }
+
+function verificaDomanda(d,card){
+  if(d.tipo==='mc'){ const s=card.querySelector('input:checked'); return !!s && String(s.value)===String(d.giusta); }
+  if(d.tipo==='tf'){ const s=card.querySelector('input:checked'); return !!s && String(s.value)===String(d.giusta); }
+  if(d.tipo==='ms'){ const got=[...card.querySelectorAll('input:checked')].map(x=>+x.value); return arrUguali(got,d.giuste); }
+  if(d.tipo==='hottext'){ return d.tokens.every((t,k)=>card.querySelector(`.chip[data-k="${k}"]`).classList.contains('sel')===t.ok); }
+  if(d.tipo==='fill'){ return d.blanks.every((b,k)=>card.querySelector(`.fillsel[data-k="${k}"]`).value===b.giusta); }
+  if(d.tipo==='order'){ const ids=[...card.querySelectorAll('li')].map(li=>+li.dataset.id); return ids.every((v,idx)=>v===idx); }
+  if(d.tipo==='match'){ return d.coppie.every((c,k)=>card.querySelector(`.matchsel[data-k="${k}"]`).value===String(k)); }
+  if(d.tipo==='cat'){ return d.items.every((it,k)=>card.querySelector(`.cat-item[data-i="${k}"]`).dataset.cat===String(it.cat)); }
+  return false;
+}
+function controllaQuiz(sez){
+  const v=verifiche[sez]; let ok=0;
+  v.domande.forEach((d,i)=>{
+    const card=document.getElementById(`qc-${sez}-${i}`);
+    const corretto=verificaDomanda(d,card);
+    card.classList.remove('giusta','sbagliata');
+    card.classList.add(corretto?'giusta':'sbagliata');
+    const fb=card.querySelector('.q-fb'); fb.style.display='block';
+    fb.innerHTML=(corretto?'✅ <b>Giusto!</b> ':'❌ <b>Non proprio.</b> ')+(d.spieg||'');
+    if(corretto) ok++;
+  });
+  const tot=v.domande.length, sc=document.getElementById(`score-${sez}`);
+  sc.style.display='block'; sc.className='quiz-score'+(ok===tot?' full':'');
+  sc.innerHTML=`Punteggio: ${ok}/${tot} &nbsp; ${ok===tot?'🎉 Perfetto, hai capito tutto!':ok>=Math.ceil(tot/2)?'👍 Bene! Ricontrolla le risposte in rosso.':'💪 Riprova: rileggi la pagina e ce la fai!'}`;
+  sc.scrollIntoView({behavior:'smooth', block:'center'});
+}
+function montaVerifica(sez){
+  const m=document.querySelector(`.verifica-mount[data-sez="${sez}"]`); if(!m) return;
+  const v=verifiche[sez];
+  m.innerHTML=`<h2>🎯 Verifica: ${v.titolo}</h2>
+    <p>Prova a rispondere, poi premi <b>Controlla</b> per vedere il punteggio e le spiegazioni.</p>
+    ${v.domande.map((d,i)=>renderDomanda(sez,d,i)).join('')}
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:6px">
+      <button class="btn" onclick="controllaQuiz('${sez}')">✓ Controlla</button>
+      <button class="btn ghost" onclick="montaVerifica('${sez}')">↺ Riprova</button>
+    </div>
+    <div class="quiz-score" id="score-${sez}"></div>`;
+}
+function montaTutteVerifiche(){ Object.keys(verifiche).forEach(montaVerifica); }
+
+/* ============ TIENI IL SEGNO / INDICE DI ATTENZIONE ============ */
+const SEGNO_PAUSA = 850;      // ms minimi tra un pensiero e il successivo: impedisce il click di corsa
+let segnoPronto = true;       // false durante la breve attesa dopo un click valido
+let segnoTotale = 0;          // pensieri seguiti in tutta la lezione
+
+function pensieriDi(id){
+  const page = document.getElementById('page-'+id);
+  if(!page) return [];
+  return [...page.querySelectorAll('p')].filter(p=>{
+    if(p.closest('.verifica-mount')) return false;   // niente segno nei quiz
+    if(p.classList.contains('segno-hint')) return false;
+    return p.textContent.trim().length > 24;          // salta etichette/micro-testi
+  });
+}
+function aggiornaSegno(id){
+  const ps = pensieriDi(id);
+  const letti = ps.filter(p=>p.classList.contains('letto')).length;
+  const perc = Math.round(letti / (ps.length || 1) * 100);
+  const b = document.getElementById('segnoBadge');
+  b.querySelector('.sg-perc').textContent = perc + '%';
+  b.querySelector('.sg-bar > i').style.width = perc + '%';
+  b.querySelector('.sg-tot').textContent = segnoTotale;
+  b.classList.toggle('pieno', perc === 100);
+}
+function attivaProssimo(id){
+  const ps = pensieriDi(id);
+  ps.forEach(p=>p.classList.remove('attivo'));
+  const next = ps.find(p=>!p.classList.contains('letto'));
+  if(next) next.classList.add('attivo');
+}
+function preparaSegno(id){
+  pensieriDi(id).forEach(p=>p.classList.add('pensiero'));
+  attivaProssimo(id);
+  aggiornaSegno(id);
+}
+function nudgeSegno(p){
+  p.classList.add('troppo');
+  setTimeout(()=>p.classList.remove('troppo'), 460);
+}
+document.addEventListener('click', e=>{
+  if(e.target.closest('.kw')) return;              // le parole chiave aprono il glossario
+  const p = e.target.closest('.pensiero');
+  if(!p || p.classList.contains('letto')) return;
+  if(!p.classList.contains('attivo')){ nudgeSegno(p); return; }   // non si salta avanti
+  if(!segnoPronto){ nudgeSegno(p); return; }                     // si va al ritmo della voce
+  p.classList.remove('attivo');
+  p.classList.add('letto');
+  segnoTotale++;
+  segnoPronto = false;
+  setTimeout(()=>{ segnoPronto = true; }, SEGNO_PAUSA);
+  attivaProssimo(pagAttuale);
+  aggiornaSegno(pagAttuale);
+});
+
+/* ============ AVVIO ============ */
+montaTutteVerifiche();
+vai('home');
+caricaScenario(0);
+</script>
+</body>
+</html>
