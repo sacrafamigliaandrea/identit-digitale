@@ -172,6 +172,7 @@ label{font-weight:700; font-size:.92rem; display:block; margin-bottom:5px; color
 .cf-break span{background:#fff; border:2px solid var(--bordo); border-radius:8px; padding:6px 10px; text-align:center; font-size:.8rem; color:var(--grigio); min-width:60px}
 .cf-break span b{display:block; font-family:'Courier New',monospace; font-size:1.2rem; color:var(--verde-scuro); letter-spacing:2px}
 /* CF — esempio annotato */
+.cf-card{max-width:520px; margin:14px auto}
 .cf-esempio{margin-top:10px}
 .cf-chars{display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin:4px 0 16px}
 .cf-c{font-family:'Courier New',monospace; font-weight:700; font-size:1.5rem; width:40px; height:50px;
@@ -654,7 +655,12 @@ img.media{border:1px solid rgba(255,255,255,.6)}
   </div>
 
   <h2>Un esempio vero</h2>
-  <p>Ecco il codice di <b>Maria Rossi</b>, nata a <b>Orzinuovi</b> il <b>7 marzo 2013</b>. Sono 16 caratteri: clicca con gli occhi su ogni colore e scopri da dove nasce.</p>
+  <p>Il codice fiscale è stampato sulla <b class="kw" data-t="tesserasanitaria">tessera sanitaria</b> che ognuno ha in casa. Questa è quella di <b>Maria Rossi</b>, nata a <b>Orzinuovi</b> il <b>7 marzo 2013</b>:</p>
+  <figure class="cf-card">
+    <img class="media" src="cf.jpg" alt="Tessera sanitaria di Maria Rossi con il codice fiscale RSSMRA13C47G149O">
+    <figcaption>La tessera sanitaria di Maria: il codice fiscale è scritto in alto, sotto il chip.</figcaption>
+  </figure>
+  <p>Quei 16 caratteri non sono a caso: ognuno nasce dai suoi dati. Guarda i colori e scopri da dove arriva ogni pezzo.</p>
   <div class="cf-esempio">
     <div class="cf-result">RSSMRA13C47G149O</div>
     <div class="cf-chars">
