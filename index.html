@@ -171,6 +171,18 @@ label{font-weight:700; font-size:.92rem; display:block; margin-bottom:5px; color
 .cf-break{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:8px}
 .cf-break span{background:#fff; border:2px solid var(--bordo); border-radius:8px; padding:6px 10px; text-align:center; font-size:.8rem; color:var(--grigio); min-width:60px}
 .cf-break span b{display:block; font-family:'Courier New',monospace; font-size:1.2rem; color:var(--verde-scuro); letter-spacing:2px}
+/* CF — esempio annotato */
+.cf-esempio{margin-top:10px}
+.cf-chars{display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin:4px 0 16px}
+.cf-c{font-family:'Courier New',monospace; font-weight:700; font-size:1.5rem; width:40px; height:50px;
+  display:flex; align-items:center; justify-content:center; border-radius:10px; background:#fff;
+  border:2px solid var(--gc); color:var(--gc); box-shadow:0 2px 6px rgba(0,0,0,.06)}
+.cf-legenda{display:grid; grid-template-columns:repeat(2,1fr); gap:8px}
+@media(max-width:820px){.cf-legenda{grid-template-columns:1fr}}
+.cf-leg{font-size:.92rem; background:#fff; border-radius:10px; padding:8px 12px; border-left:5px solid var(--gc)}
+.cf-leg .pz{font-family:'Courier New',monospace; font-weight:700; letter-spacing:1px; color:var(--gc); margin-right:4px}
+.cfg1{--gc:#1f7a4d} .cfg2{--gc:#1e8a9e} .cfg3{--gc:#b5832a} .cfg4{--gc:#8a5fb0}
+.cfg5{--gc:#c4663a} .cfg6{--gc:#3a6ea5} .cfg7{--gc:#b03a5b}
 /* SITUAZIONI */
 .scelta{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:14px}
 @media(max-width:820px){.scelta{grid-template-columns:1fr}}
@@ -640,6 +652,31 @@ img.media{border:1px solid rgba(255,255,255,.6)}
     <div class="a"><b>4 caratteri</b> per il comune di nascita</div>
     <div class="a"><b>1 lettera</b> finale di controllo</div>
   </div>
+
+  <h2>Un esempio vero</h2>
+  <p>Ecco il codice di <b>Maria Rossi</b>, nata a <b>Orzinuovi</b> il <b>7 marzo 2013</b>. Sono 16 caratteri: clicca con gli occhi su ogni colore e scopri da dove nasce.</p>
+  <div class="cf-esempio">
+    <div class="cf-result">RSSMRA13C47G149O</div>
+    <div class="cf-chars">
+      <span class="cf-c cfg1">R</span><span class="cf-c cfg1">S</span><span class="cf-c cfg1">S</span>
+      <span class="cf-c cfg2">M</span><span class="cf-c cfg2">R</span><span class="cf-c cfg2">A</span>
+      <span class="cf-c cfg3">1</span><span class="cf-c cfg3">3</span>
+      <span class="cf-c cfg4">C</span>
+      <span class="cf-c cfg5">4</span><span class="cf-c cfg5">7</span>
+      <span class="cf-c cfg6">G</span><span class="cf-c cfg6">1</span><span class="cf-c cfg6">4</span><span class="cf-c cfg6">9</span>
+      <span class="cf-c cfg7">O</span>
+    </div>
+    <div class="cf-legenda">
+      <div class="cf-leg cfg1"><span class="pz">RSS</span> Cognome: le consonanti di <b>Ro<u>ss</u>i</b> (R, S, S).</div>
+      <div class="cf-leg cfg2"><span class="pz">MRA</span> Nome: le lettere di <b>Maria</b> (M, R, A).</div>
+      <div class="cf-leg cfg3"><span class="pz">13</span> Anno: le ultime due cifre del <b>2013</b>.</div>
+      <div class="cf-leg cfg4"><span class="pz">C</span> Mese: marzo è la lettera <b>C</b> (gennaio=A, febbraio=B, marzo=C…).</div>
+      <div class="cf-leg cfg5"><span class="pz">47</span> Giorno: è nata il <b>7</b>, ma è femmina, quindi <b>7 + 40 = 47</b>.</div>
+      <div class="cf-leg cfg6"><span class="pz">G149</span> Comune: il codice di <b>Orzinuovi</b>.</div>
+      <div class="cf-leg cfg7"><span class="pz">O</span> Controllo: l'ultima lettera, calcolata dalle altre 15.</div>
+    </div>
+  </div>
+
   <div class="box info">
     <div class="titolo"><iconify-icon icon="ph:magnifying-glass-duotone"></iconify-icon> La lettera di controllo</div>
     L'ultima lettera è un trucco matematico: si calcola dalle altre 15. Se sbagli a scrivere il codice, il computer se ne accorge subito perché l'ultima lettera non torna!
