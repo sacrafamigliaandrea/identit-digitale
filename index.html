@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
+<script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
 <style>
 :root{
   --verde:#1f7a4d; --verde-scuro:#0f5c3a; --verde-chiaro:#e6f4ec;
@@ -269,6 +270,110 @@ ul.ord{list-style:none; margin:0; padding:0}
   .sidebar{width:100%; min-width:0; height:auto; position:static; flex-direction:row; overflow-x:auto}
   .wrap{padding:20px}
 }
+/* ===================================================================
+   RESTYLE 2.0 — "Identità Digitale": aurora, vetro, icone duotone
+   =================================================================== */
+:root{
+  --grad-verde:linear-gradient(135deg,#1f7a4d,#0f5c3a);
+  --grad-acqua:linear-gradient(135deg,#16a085,#0f7a8f);
+}
+iconify-icon{display:inline-block; vertical-align:-.14em; line-height:1}
+/* ---- aurora di sfondo animata ---- */
+body{position:relative; background:#e8f2ec}
+body::before{
+  content:""; position:fixed; inset:-25%; z-index:-2; pointer-events:none;
+  background:
+    radial-gradient(38% 44% at 18% 18%, rgba(31,122,77,.30), transparent 60%),
+    radial-gradient(36% 40% at 84% 10%, rgba(0,102,204,.22), transparent 60%),
+    radial-gradient(46% 52% at 78% 86%, rgba(22,160,133,.26), transparent 62%),
+    radial-gradient(40% 46% at 10% 90%, rgba(255,183,3,.18), transparent 60%);
+  filter:blur(6px); animation:aurora 28s ease-in-out infinite alternate;
+}
+@keyframes aurora{
+  0%{transform:translate3d(0,0,0) scale(1)}
+  50%{transform:translate3d(2%,-1.5%,0) scale(1.07)}
+  100%{transform:translate3d(-2%,1.5%,0) scale(1.04)}
+}
+/* griglia tecnologica leggerissima */
+body::after{
+  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.55;
+  background-image:linear-gradient(rgba(15,92,58,.06) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(15,92,58,.06) 1px,transparent 1px);
+  background-size:36px 36px;
+  -webkit-mask:radial-gradient(circle at 55% 35%, #000, transparent 80%);
+          mask:radial-gradient(circle at 55% 35%, #000, transparent 80%);
+}
+/* ---- pannello contenuto in vetro ---- */
+.main{padding:24px 24px 24px 8px}
+.wrap{
+  background:rgba(255,255,255,.74);
+  -webkit-backdrop-filter:blur(18px) saturate(1.25); backdrop-filter:blur(18px) saturate(1.25);
+  border:1px solid rgba(255,255,255,.8); border-radius:30px;
+  box-shadow:0 26px 70px rgba(15,92,58,.16), inset 0 1px 0 rgba(255,255,255,.85);
+}
+/* ---- sidebar elevata ---- */
+.sidebar{background:linear-gradient(165deg,#0f5c3a 0%,#1f7a4d 52%,#1a8f6a 100%); overflow:hidden}
+.sidebar::before{content:""; position:absolute; inset:0 0 auto 0; height:55%; pointer-events:none;
+  background:radial-gradient(70% 60% at 50% -10%, rgba(255,255,255,.22), transparent 70%)}
+.nav a{position:relative; transition:background .15s, transform .12s, box-shadow .15s}
+.nav a .ico, .nav a iconify-icon{font-size:1.5rem; width:28px; text-align:center}
+.nav a:not(.attiva):hover{background:rgba(255,255,255,.16); transform:translateX(3px)}
+.nav a.attiva{background:rgba(255,255,255,.97); color:var(--verde-scuro);
+  box-shadow:0 10px 24px rgba(0,0,0,.26); transform:translateX(3px)}
+.nav a.attiva iconify-icon{color:var(--verde)}
+.sb-logo img{box-shadow:0 0 0 4px rgba(255,255,255,.16), 0 10px 22px rgba(0,0,0,.32); transition:transform .35s}
+.sb-logo img:hover{transform:scale(1.06) rotate(-2deg)}
+/* ---- titoli ---- */
+h1{background:linear-gradient(118deg,#0f5c3a,#16a085 52%,#0066cc);
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+  letter-spacing:-.5px}
+h2{display:flex; align-items:center; gap:11px; border-bottom:none; position:relative; padding-bottom:14px}
+h2::after{content:""; position:absolute; left:0; bottom:0; width:68px; height:4px; border-radius:4px; background:var(--grad-acqua)}
+h2 iconify-icon{font-size:1.5rem; color:var(--verde)}
+h3 iconify-icon{vertical-align:-.16em; margin-right:4px}
+/* ---- eyebrow a pillola di vetro ---- */
+.eyebrow{display:inline-flex; align-items:center; gap:7px; background:rgba(255,255,255,.72);
+  color:var(--verde-scuro); border:1px solid rgba(31,122,77,.28);
+  box-shadow:0 6px 16px rgba(15,92,58,.12); -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px)}
+.eyebrow iconify-icon{font-size:1.05rem; color:var(--verde)}
+/* ---- card glass + hover ---- */
+.card{background:linear-gradient(180deg,rgba(255,255,255,.94),rgba(255,255,255,.8));
+  border:1px solid rgba(255,255,255,.85); border-radius:20px;
+  box-shadow:0 12px 30px rgba(15,92,58,.10), inset 0 1px 0 rgba(255,255,255,.9)}
+.grid2 .card, .grid3 .card{transition:transform .18s, box-shadow .18s}
+.grid2 .card:hover, .grid3 .card:hover{transform:translateY(-5px); box-shadow:0 22px 46px rgba(15,92,58,.20)}
+.card h3 iconify-icon{color:var(--blu)}
+/* ---- box ---- */
+.box{border-radius:18px; box-shadow:0 8px 22px rgba(15,92,58,.08)}
+.box .titolo iconify-icon{font-size:1.4rem}
+.box.info .titolo iconify-icon{color:var(--blu)}
+.box.ok .titolo iconify-icon{color:var(--verde)}
+.box.warn .titolo iconify-icon{color:#cf8e00}
+.box.bad .titolo iconify-icon{color:var(--rosso)}
+/* ---- bottoni con riflesso ---- */
+.btn{background:var(--grad-verde); position:relative; overflow:hidden; box-shadow:0 9px 22px rgba(31,122,77,.32)}
+.btn.blu{background:linear-gradient(135deg,#0066cc,#003d80); box-shadow:0 9px 22px rgba(0,102,204,.32)}
+.btn.ghost{background:rgba(255,255,255,.88)}
+.btn iconify-icon{font-size:1.2rem}
+.btn::after{content:""; position:absolute; top:0; left:-130%; width:55%; height:100%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.4),transparent); transform:skewX(-18deg); pointer-events:none}
+.btn:hover::after{animation:shine .85s ease}
+@keyframes shine{to{left:140%}}
+/* ---- immagini con bagliore ---- */
+img.hero{box-shadow:0 26px 60px rgba(15,92,58,.28); border:1px solid rgba(255,255,255,.6)}
+img.media{border:1px solid rgba(255,255,255,.6)}
+/* ---- sportelli/tag icone ---- */
+.sport .h iconify-icon{font-size:1.7rem; color:var(--verde)}
+.tag iconify-icon{vertical-align:-.14em; margin-right:4px}
+/* ---- badge attenzione: piccolo ritocco vetro ---- */
+.segno-badge{background:rgba(255,255,255,.85); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px)}
+/* ---- testo "non ancora attivo": sbiadito finché non si tiene il segno ---- */
+.pensiero{transition:color .35s, opacity .35s, background .25s, box-shadow .25s}
+.pensiero:not(.attivo):not(.letto){color:#93a39c; opacity:.66}
+.pensiero:not(.attivo):not(.letto) .kw{color:#9aa9a2; border-bottom-color:rgba(15,92,58,.18)}
+.pensiero:not(.attivo):not(.letto) .kw::after{opacity:.3}
+.pensiero:not(.attivo):not(.letto) b{color:inherit}
+.pensiero.attivo, .pensiero.letto{color:var(--testo); opacity:1}
 </style>
 </head>
 <body>
@@ -289,15 +394,15 @@ ul.ord{list-style:none; margin:0; padding:0}
     <div class="t2">Identità e servizi online</div>
   </div>
   <nav class="nav" id="nav">
-    <a data-go="home"><span class="ico">🏠</span> Home <span class="num">Intro</span></a>
-    <a data-go="identita"><span class="ico">🪪</span> L'identità <span class="num">1</span></a>
-    <a data-go="biometria"><span class="ico">🧬</span> Dati biometrici <span class="num">2</span></a>
-    <a data-go="digitale"><span class="ico">💻</span> Identità digitale & PA <span class="num">3</span></a>
-    <a data-go="codicefiscale"><span class="ico">🔢</span> Il codice fiscale <span class="num">4</span></a>
-    <a data-go="qrcode"><span class="ico">▦</span> I codici QR <span class="num">5</span></a>
-    <a data-go="cieid"><span class="ico">📱</span> La CieID <span class="num">6</span></a>
-    <a data-go="sicurezza"><span class="ico">🛡️</span> Proteggi l'identità <span class="num">7</span></a>
-    <a data-go="situazioni"><span class="ico">🌍</span> Situazioni reali <span class="num">8</span></a>
+    <a data-go="home"><iconify-icon class="ico" icon="ph:house-duotone"></iconify-icon> Home <span class="num">Intro</span></a>
+    <a data-go="identita"><iconify-icon class="ico" icon="ph:identification-card-duotone"></iconify-icon> L'identità <span class="num">1</span></a>
+    <a data-go="biometria"><iconify-icon class="ico" icon="ph:dna-duotone"></iconify-icon> Dati biometrici <span class="num">2</span></a>
+    <a data-go="digitale"><iconify-icon class="ico" icon="ph:desktop-duotone"></iconify-icon> Identità digitale & PA <span class="num">3</span></a>
+    <a data-go="codicefiscale"><iconify-icon class="ico" icon="ph:barcode-duotone"></iconify-icon> Il codice fiscale <span class="num">4</span></a>
+    <a data-go="qrcode"><iconify-icon class="ico" icon="ph:qr-code-duotone"></iconify-icon> I codici QR <span class="num">5</span></a>
+    <a data-go="cieid"><iconify-icon class="ico" icon="ph:device-mobile-camera-duotone"></iconify-icon> La CieID <span class="num">6</span></a>
+    <a data-go="sicurezza"><iconify-icon class="ico" icon="ph:shield-check-duotone"></iconify-icon> Proteggi l'identità <span class="num">7</span></a>
+    <a data-go="situazioni"><iconify-icon class="ico" icon="ph:globe-hemisphere-west-duotone"></iconify-icon> Situazioni reali <span class="num">8</span></a>
   </nav>
   <div class="sb-foot">
     © 2026 Scuola Sacra Famiglia — Orzinuovi (BS)<br>
@@ -310,7 +415,7 @@ ul.ord{list-style:none; margin:0; padding:0}
 
 <!-- ========== HOME ========== -->
 <section class="page" id="page-home">
-  <span class="eyebrow">Laboratorio di Informatica</span>
+  <span class="eyebrow"><iconify-icon icon="ph:graduation-cap-duotone"></iconify-icon> Laboratorio di Informatica</span>
   <h1>Cittadino del mondo… anche di quello digitale</h1>
   <p class="lead">Ogni giorno, anche senza accorgerti, usi servizi che hanno bisogno di sapere <b>chi sei</b>. In questo percorso scopriamo come dimostriamo la nostra identità nella vita reale e in quella online.</p>
   <img class="hero" src="home.jpg" alt="Identità digitale">
@@ -321,19 +426,19 @@ ul.ord{list-style:none; margin:0; padding:0}
   </div>
   <h2>Cosa faremo in questo percorso</h2>
   <div class="grid3">
-    <div class="card"><h3>🪪 L'identità</h3><p>Quali dati dicono chi sei e perché a volte devi dimostrarlo.</p></div>
-    <div class="card"><h3>🧬 La biometria</h3><p>Come una macchina riconosce una persona. Proverai uno <b>scanner</b>.</p></div>
-    <div class="card"><h3>🔢 Codice fiscale</h3><p>Quel codice strano che hai anche tu: lo costruiremo insieme.</p></div>
-    <div class="card"><h3>▦ I codici QR</h3><p>Come funzionano e un <b>generatore</b> per crearne uno tuo.</p></div>
-    <div class="card"><h3>📱 La CieID</h3><p>Entrare nei siti dello Stato con la carta d'identità e un QR.</p></div>
-    <div class="card"><h3>🛡️ Proteggi l'identità</h3><p>Password sicure, privacy e come evitare le trappole online.</p></div>
-    <div class="card"><h3>🌍 Situazioni reali</h3><p>Come il digitale aiuta… o lascia indietro chi non sa usarlo.</p></div>
+    <div class="card"><h3><iconify-icon icon="ph:identification-card-duotone"></iconify-icon> L'identità</h3><p>Quali dati dicono chi sei e perché a volte devi dimostrarlo.</p></div>
+    <div class="card"><h3><iconify-icon icon="ph:dna-duotone"></iconify-icon> La biometria</h3><p>Come una macchina riconosce una persona. Proverai uno <b>scanner</b>.</p></div>
+    <div class="card"><h3><iconify-icon icon="ph:barcode-duotone"></iconify-icon> Codice fiscale</h3><p>Quel codice strano che hai anche tu: lo costruiremo insieme.</p></div>
+    <div class="card"><h3><iconify-icon icon="ph:qr-code-duotone"></iconify-icon> I codici QR</h3><p>Come funzionano e un <b>generatore</b> per crearne uno tuo.</p></div>
+    <div class="card"><h3><iconify-icon icon="ph:device-mobile-camera-duotone"></iconify-icon> La CieID</h3><p>Entrare nei siti dello Stato con la carta d'identità e un QR.</p></div>
+    <div class="card"><h3><iconify-icon icon="ph:shield-check-duotone"></iconify-icon> Proteggi l'identità</h3><p>Password sicure, privacy e come evitare le trappole online.</p></div>
+    <div class="card"><h3><iconify-icon icon="ph:globe-hemisphere-west-duotone"></iconify-icon> Situazioni reali</h3><p>Come il digitale aiuta… o lascia indietro chi non sa usarlo.</p></div>
   </div>
   <div class="box info" style="margin-top:24px">
-    <div class="titolo">💡 Come si usa questa app</div>
+    <div class="titolo"><iconify-icon icon="ph:lightbulb-duotone"></iconify-icon> Come si usa questa app</div>
     Le parole <b class="kw" data-t="evidenziata">evidenziate in blu</b> si possono cliccare: si apre una finestra che spiega il significato con un esempio. In ogni pagina trovi anche una parte <b>interattiva</b> da provare con il mouse.
   </div>
-  <div class="segno-hint"><span style="font-size:1.3rem">👆</span> <span><b>Tieni il segno!</b> Mentre l'insegnante legge ad alta voce, clicca ogni paragrafo nel momento in cui viene letto: si illumina di verde. In alto a destra vedi il tuo <b>indice di attenzione</b>. Vai al passo della voce: cliccare di corsa non lo fa salire.</span></div>
+  <div class="segno-hint"><iconify-icon icon="ph:hand-pointing-duotone" style="font-size:1.4rem; color:#cf8e00"></iconify-icon> <span><b>Tieni il segno!</b> Mentre l'insegnante legge ad alta voce, clicca ogni paragrafo nel momento in cui viene letto: si illumina di verde. In alto a destra vedi il tuo <b>indice di attenzione</b>. Vai al passo della voce: cliccare di corsa non lo fa salire.</span></div>
   <div class="next"><button class="btn" data-go="identita">Iniziamo → L'identità</button></div>
 </section>
 
@@ -354,23 +459,23 @@ ul.ord{list-style:none; margin:0; padding:0}
     <span class="tag blu">Numero della carta d'identità</span>
   </div>
   <div class="box warn">
-    <div class="titolo">⚠️ Attenzione</div>
+    <div class="titolo"><iconify-icon icon="ph:warning-duotone"></iconify-icon> Attenzione</div>
     Il nome da solo non basta: in Italia ci sono migliaia di persone che si chiamano "Marco Rossi". Per questo lo Stato aggiunge dati che <b>non si ripetono mai</b>, come il <b class="kw" data-t="codicefiscale">codice fiscale</b>.
   </div>
 
   <h2>Perché bisogna poter dimostrare l'identità</h2>
   <p>Dimostrare chi sei serve a proteggere <b>te</b> e gli <b>altri</b>. Senza una prova, chiunque potrebbe fingersi te e prendere le tue cose o i tuoi diritti. Si chiama <b class="kw" data-t="identita">identificazione</b>.</p>
   <div class="grid2">
-    <div class="card"><h3>🏦 In banca</h3><p>Per ritirare i soldi devi dimostrare che il conto è tuo, altrimenti chiunque potrebbe prenderli.</p></div>
-    <div class="card"><h3>✈️ In aeroporto</h3><p>Per salire sull'aereo mostri il <b class="kw" data-t="documento">documento</b>: serve a sapere chi viaggia, per la sicurezza di tutti.</p></div>
-    <div class="card"><h3>🏥 Dal medico</h3><p>La tua <b class="kw" data-t="tesserasanitaria">tessera sanitaria</b> collega le cure proprio alla tua salute, non a quella di un altro.</p></div>
-    <div class="card"><h3>🗳️ Al seggio</h3><p>Da grande, per votare mostrerai un documento: così ognuno vota una sola volta.</p></div>
+    <div class="card"><h3><iconify-icon icon="ph:bank-duotone"></iconify-icon> In banca</h3><p>Per ritirare i soldi devi dimostrare che il conto è tuo, altrimenti chiunque potrebbe prenderli.</p></div>
+    <div class="card"><h3><iconify-icon icon="ph:airplane-tilt-duotone"></iconify-icon> In aeroporto</h3><p>Per salire sull'aereo mostri il <b class="kw" data-t="documento">documento</b>: serve a sapere chi viaggia, per la sicurezza di tutti.</p></div>
+    <div class="card"><h3><iconify-icon icon="ph:first-aid-kit-duotone"></iconify-icon> Dal medico</h3><p>La tua <b class="kw" data-t="tesserasanitaria">tessera sanitaria</b> collega le cure proprio alla tua salute, non a quella di un altro.</p></div>
+    <div class="card"><h3><iconify-icon icon="ph:check-square-duotone"></iconify-icon> Al seggio</h3><p>Da grande, per votare mostrerai un documento: così ognuno vota una sola volta.</p></div>
   </div>
 
   <h2>A chi devi esibire l'identità</h2>
   <p>Mostri un documento solo a chi ne ha davvero il diritto: le <b class="kw" data-t="pubblicaamministrazione">istituzioni pubbliche</b> (polizia, comune, scuola), la banca, l'ospedale. Lo strumento normale per farlo è la <b class="kw" data-t="cartaidentita">carta d'identità</b>.</p>
   <div class="box bad">
-    <div class="titolo">🚫 Regola d'oro</div>
+    <div class="titolo"><iconify-icon icon="ph:prohibit-duotone"></iconify-icon> Regola d'oro</div>
     Non si danno i propri dati a sconosciuti, né di persona né online! Una foto della carta d'identità inviata alla persona sbagliata può essere usata per <b class="kw" data-t="furtoidentita">rubare la tua identità</b>.
   </div>
 
@@ -400,15 +505,15 @@ ul.ord{list-style:none; margin:0; padding:0}
 
   <h2>Quali dati biometrici usa il digitale</h2>
   <div class="grid3">
-    <div class="card"><h3>👆 Impronta digitale</h3><p>Il disegno di linee sui polpastrelli. È diverso per ogni dito e per ogni persona, persino tra gemelli.</p></div>
-    <div class="card"><h3>😀 Volto</h3><p>La <b class="kw" data-t="riconoscimentofacciale">forma del viso</b>: distanza tra gli occhi, naso, mento. È così che si sblocca molti smartphone.</p></div>
-    <div class="card"><h3>👁️ Iride</h3><p>I disegni colorati intorno alla pupilla. Sono unici e quasi impossibili da copiare.</p></div>
-    <div class="card"><h3>🗣️ Voce</h3><p>Il tono e il modo di parlare. Alcune banche ti riconoscono al telefono dalla voce.</p></div>
-    <div class="card"><h3>✍️ Firma e modo di scrivere</h3><p>Come muovi la mano, la velocità, la pressione: anche questo ti distingue.</p></div>
-    <div class="card"><h3>❤️ Battito e vene</h3><p>Tecnologie avanzate leggono il ritmo del cuore o il disegno delle vene della mano.</p></div>
+    <div class="card"><h3><iconify-icon icon="ph:fingerprint-duotone"></iconify-icon> Impronta digitale</h3><p>Il disegno di linee sui polpastrelli. È diverso per ogni dito e per ogni persona, persino tra gemelli.</p></div>
+    <div class="card"><h3><iconify-icon icon="ph:smiley-duotone"></iconify-icon> Volto</h3><p>La <b class="kw" data-t="riconoscimentofacciale">forma del viso</b>: distanza tra gli occhi, naso, mento. È così che si sblocca molti smartphone.</p></div>
+    <div class="card"><h3><iconify-icon icon="ph:eye-duotone"></iconify-icon> Iride</h3><p>I disegni colorati intorno alla pupilla. Sono unici e quasi impossibili da copiare.</p></div>
+    <div class="card"><h3><iconify-icon icon="ph:microphone-duotone"></iconify-icon> Voce</h3><p>Il tono e il modo di parlare. Alcune banche ti riconoscono al telefono dalla voce.</p></div>
+    <div class="card"><h3><iconify-icon icon="ph:signature-duotone"></iconify-icon> Firma e modo di scrivere</h3><p>Come muovi la mano, la velocità, la pressione: anche questo ti distingue.</p></div>
+    <div class="card"><h3><iconify-icon icon="ph:heartbeat-duotone"></iconify-icon> Battito e vene</h3><p>Tecnologie avanzate leggono il ritmo del cuore o il disegno delle vene della mano.</p></div>
   </div>
   <div class="box info">
-    <div class="titolo">🔐 Perché sono utili</div>
+    <div class="titolo"><iconify-icon icon="ph:lock-key-duotone"></iconify-icon> Perché sono utili</div>
     Una password si può dimenticare o rubare. Il tuo corpo invece ce l'hai sempre con te: per questo i dati biometrici servono a garantire un <b class="kw" data-t="accessosicuro">accesso sicuro</b> a luoghi (un ufficio, un aeroporto) o ad ambienti digitali (lo smartphone, un'app).
   </div>
 
@@ -417,10 +522,10 @@ ul.ord{list-style:none; margin:0; padding:0}
   <div class="card">
     <div class="scanner-wrap">
       <div class="bio-pick" id="bioPick">
-        <div class="opt sel" data-bio="impronta"><span class="e">👆</span> Impronta digitale</div>
-        <div class="opt" data-bio="volto"><span class="e">😀</span> Riconoscimento del volto</div>
-        <div class="opt" data-bio="iride"><span class="e">👁️</span> Scansione dell'iride</div>
-        <div style="margin-top:6px"><button class="btn" id="btnScan" onclick="avviaScan()">▶ Avvia scansione</button></div>
+        <div class="opt sel" data-bio="impronta"><iconify-icon class="e" icon="ph:fingerprint-duotone"></iconify-icon> Impronta digitale</div>
+        <div class="opt" data-bio="volto"><iconify-icon class="e" icon="ph:smiley-duotone"></iconify-icon> Riconoscimento del volto</div>
+        <div class="opt" data-bio="iride"><iconify-icon class="e" icon="ph:eye-duotone"></iconify-icon> Scansione dell'iride</div>
+        <div style="margin-top:6px"><button class="btn" id="btnScan" onclick="avviaScan()"><iconify-icon icon="ph:play-duotone"></iconify-icon> Avvia scansione</button></div>
         <label style="margin-top:10px"><input type="checkbox" id="impostore" style="width:auto; margin-right:6px">Simula un <b>impostore</b> (persona non riconosciuta)</label>
       </div>
       <div class="scanner" id="scanner">
@@ -437,7 +542,7 @@ ul.ord{list-style:none; margin:0; padding:0}
     <figcaption>Un vero controllo biometrico all'ingresso di un edificio: la macchina verifica il volto e dà o nega l'accesso.</figcaption>
   </figure>
   <div class="box warn">
-    <div class="titolo">🤔 Da pensare insieme</div>
+    <div class="titolo"><iconify-icon icon="ph:brain-duotone"></iconify-icon> Da pensare insieme</div>
     I dati biometrici sono comodissimi, ma sono <b>delicati</b>: non puoi cambiarli come una password. Per questo la legge protegge in modo speciale chi li raccoglie e li conserva.
   </div>
   <div class="verifica-mount" data-sez="biometria"></div>
@@ -460,11 +565,11 @@ ul.ord{list-style:none; margin:0; padding:0}
   <h2>Le chiavi per entrare online: SPID e CIE</h2>
   <div class="grid2">
     <div class="card">
-      <h3>🆔 SPID</h3>
+      <h3><iconify-icon icon="ph:identification-badge-duotone"></iconify-icon> SPID</h3>
       <p>Lo <b class="kw" data-t="spid">SPID</b> è un nome utente e una password speciali, uguali per tutti i siti pubblici. Una sola identità per entrare ovunque.</p>
     </div>
     <div class="card">
-      <h3>💳 CIE</h3>
+      <h3><iconify-icon icon="ph:identification-card-duotone"></iconify-icon> CIE</h3>
       <p>La <b class="kw" data-t="cie">Carta d'Identità Elettronica</b> è la carta d'identità con un microchip dentro. Avvicinandola allo smartphone, diventa la tua chiave digitale.</p>
     </div>
   </div>
@@ -478,7 +583,7 @@ ul.ord{list-style:none; margin:0; padding:0}
     <span class="tag blu">Leggere i messaggi dello Stato sull'app IO</span>
   </div>
   <div class="box ok">
-    <div class="titolo">✅ Il vantaggio</div>
+    <div class="titolo"><iconify-icon icon="ph:check-circle-duotone"></iconify-icon> Il vantaggio</div>
     Prima per un certificato bisognava andare al Comune, fare la fila e tornare a casa. Oggi con l'identità digitale lo scarichi in <b>due minuti</b> dal divano, gratis e a qualsiasi ora.
   </div>
 
@@ -487,7 +592,7 @@ ul.ord{list-style:none; margin:0; padding:0}
   <div class="card">
     <div class="scelta">
       <div class="via fisic" onclick="this.classList.toggle('aperta')">
-        <h3>🚶 Allo sportello</h3>
+        <h3><iconify-icon icon="ph:person-simple-walk-duotone"></iconify-icon> Allo sportello</h3>
         <p>Vai di persona al Comune.</p>
         <div class="esito">
           <ul class="steps">
@@ -500,7 +605,7 @@ ul.ord{list-style:none; margin:0; padding:0}
         </div>
       </div>
       <div class="via digi" onclick="this.classList.toggle('aperta')">
-        <h3>💻 Online con identità digitale</h3>
+        <h3><iconify-icon icon="ph:desktop-duotone"></iconify-icon> Online con identità digitale</h3>
         <p>Entri nel sito del Comune.</p>
         <div class="esito">
           <ul class="steps">
@@ -536,7 +641,7 @@ ul.ord{list-style:none; margin:0; padding:0}
     <div class="a"><b>1 lettera</b> finale di controllo</div>
   </div>
   <div class="box info">
-    <div class="titolo">🔎 La lettera di controllo</div>
+    <div class="titolo"><iconify-icon icon="ph:magnifying-glass-duotone"></iconify-icon> La lettera di controllo</div>
     L'ultima lettera è un trucco matematico: si calcola dalle altre 15. Se sbagli a scrivere il codice, il computer se ne accorge subito perché l'ultima lettera non torna!
   </div>
 
@@ -564,14 +669,14 @@ ul.ord{list-style:none; margin:0; padding:0}
         </select>
       </div>
     </div>
-    <button class="btn" onclick="generaCF()">🔢 Genera il codice fiscale</button>
+    <button class="btn" onclick="generaCF()"><iconify-icon icon="ph:barcode-duotone"></iconify-icon> Genera il codice fiscale</button>
     <div id="cf-box" style="display:none">
       <div class="cf-result" id="cf-out"></div>
       <div class="cf-break" id="cf-break"></div>
     </div>
   </div>
   <div class="box warn">
-    <div class="titolo">⚠️ Solo per imparare</div>
+    <div class="titolo"><iconify-icon icon="ph:warning-duotone"></iconify-icon> Solo per imparare</div>
     Questo generatore serve a capire come funziona. Il codice ufficiale lo rilascia l'<b>Agenzia delle Entrate</b>: solo quello vale davvero.
   </div>
   <div class="verifica-mount" data-sez="codicefiscale"></div>
@@ -596,7 +701,7 @@ ul.ord{list-style:none; margin:0; padding:0}
     </div>
   </div>
   <div class="box info">
-    <div class="titolo">📍 Dove li trovi</div>
+    <div class="titolo"><iconify-icon icon="ph:map-pin-duotone"></iconify-icon> Dove li trovi</div>
     Sul menù del ristorante, sui biglietti del treno, sui manifesti, sui pacchi, e anche sui siti dello Stato per accedere con la <b class="kw" data-t="cie">CIE</b>, come vedremo nella prossima pagina.
   </div>
 
@@ -608,8 +713,8 @@ ul.ord{list-style:none; margin:0; padding:0}
       <input id="qr-text" placeholder="es. Ciao dalla 2A!  oppure  https://sacrafamiglia.edu.it" value="https://sacrafamiglia.edu.it">
     </div>
     <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px">
-      <button class="btn" onclick="generaQR()">▦ Genera QR</button>
-      <button class="btn ghost" onclick="scaricaQR()">⬇ Scarica immagine</button>
+      <button class="btn" onclick="generaQR()"><iconify-icon icon="ph:qr-code-duotone"></iconify-icon> Genera QR</button>
+      <button class="btn ghost" onclick="scaricaQR()"><iconify-icon icon="ph:download-simple-duotone"></iconify-icon> Scarica immagine</button>
     </div>
     <div class="qr-out">
       <div id="qrcode"></div>
@@ -617,7 +722,7 @@ ul.ord{list-style:none; margin:0; padding:0}
     </div>
   </div>
   <div class="box warn">
-    <div class="titolo">🛡️ Usali con prudenza</div>
+    <div class="titolo"><iconify-icon icon="ph:shield-warning-duotone"></iconify-icon> Usali con prudenza</div>
     Un QR può portarti a un sito qualsiasi: non sai dove finisci finché non lo apri. Non inquadrare codici QR trovati in giro o ricevuti da sconosciuti: potrebbero portarti a pagine pericolose.
   </div>
   <div class="verifica-mount" data-sez="qrcode"></div>
@@ -643,7 +748,7 @@ ul.ord{list-style:none; margin:0; padding:0}
     <li>Il sito ti riconosce e ti fa entrare in modo <b class="kw" data-t="accessosicuro">sicuro</b>.</li>
   </ul>
   <div class="box info">
-    <div class="titolo">❓ Perché il QR?</div>
+    <div class="titolo"><iconify-icon icon="ph:question-duotone"></iconify-icon> Perché il QR?</div>
     Il QR collega in modo sicuro il <b>computer</b> (dove vuoi entrare) e il tuo <b>telefono</b> (che ha la tua identità). È un ponte temporaneo: vale solo per quell'accesso e poi scade.
   </div>
 
@@ -685,14 +790,14 @@ ul.ord{list-style:none; margin:0; padding:0}
           </div>
         </div>
         <div style="text-align:center; margin-top:14px">
-          <button class="btn blu" id="btnPhone" onclick="scanQRPhone()">📷 Inquadra il QR</button>
+          <button class="btn blu" id="btnPhone" onclick="scanQRPhone()"><iconify-icon icon="ph:camera-duotone"></iconify-icon> Inquadra il QR</button>
           <button class="btn ghost" onclick="resetPhone()" style="margin-top:8px">↺ Ricomincia</button>
         </div>
       </div>
     </div>
   </div>
   <div class="box ok">
-    <div class="titolo">✅ Cosa è successo</div>
+    <div class="titolo"><iconify-icon icon="ph:check-circle-duotone"></iconify-icon> Cosa è successo</div>
     Il sito ha mostrato un QR, il telefono lo ha "letto" e ha confermato la tua identità con la carta. Il sito ha <b>registrato l'accesso</b> e ti ha fatto entrare: tutto in pochi secondi e senza uscire di casa.
   </div>
   <div class="verifica-mount" data-sez="cieid"></div>
@@ -708,12 +813,12 @@ ul.ord{list-style:none; margin:0; padding:0}
   <h2>1. Password e PIN: la prima difesa</h2>
   <p>La <b class="kw" data-t="password">password</b> è la parola segreta che dimostra che un account è tuo. Una password debole è come lasciare la porta aperta.</p>
   <div class="grid2">
-    <div class="card"><h3>✅ Una buona password</h3><ul><li>È <b>lunga</b> (almeno 8-10 caratteri)</li><li>Mescola MAIUSCOLE, minuscole, numeri e simboli</li><li>Non è una parola comune né il tuo nome</li></ul></div>
-    <div class="card"><h3>🚫 Da non fare mai</h3><ul><li>Usare "1234" o "password"</li><li>Dirla a qualcuno, anche agli amici</li><li>Usare la stessa password per tutto</li></ul></div>
+    <div class="card"><h3><iconify-icon icon="ph:check-circle-duotone"></iconify-icon> Una buona password</h3><ul><li>È <b>lunga</b> (almeno 8-10 caratteri)</li><li>Mescola MAIUSCOLE, minuscole, numeri e simboli</li><li>Non è una parola comune né il tuo nome</li></ul></div>
+    <div class="card"><h3><iconify-icon icon="ph:prohibit-duotone"></iconify-icon> Da non fare mai</h3><ul><li>Usare "1234" o "password"</li><li>Dirla a qualcuno, anche agli amici</li><li>Usare la stessa password per tutto</li></ul></div>
   </div>
-  <div class="box info"><div class="titolo">💡 Trucco facile</div>Parti da una frase e accorciala: «Il mio cane Fido ha 3 anni!» → <b>ImcFh3a!</b> Facile da ricordare per te, difficile da indovinare per gli altri.</div>
+  <div class="box info"><div class="titolo"><iconify-icon icon="ph:lightbulb-duotone"></iconify-icon> Trucco facile</div>Parti da una frase e accorciala: «Il mio cane Fido ha 3 anni!» → <b>ImcFh3a!</b> Facile da ricordare per te, difficile da indovinare per gli altri.</div>
 
-  <h3>🎮 Prova: quanto è forte la tua password?</h3>
+  <h3><iconify-icon icon="ph:game-controller-duotone"></iconify-icon> Prova: quanto è forte la tua password?</h3>
   <p>Scrivi una password <b>inventata</b> (mai una vera!) e guarda quanto resiste.</p>
   <div class="card">
     <div class="field"><label>Password di prova</label><input id="pwd" oninput="valutaPassword()" placeholder="Scrivi qui una password inventata..." autocomplete="off"></div>
@@ -724,15 +829,15 @@ ul.ord{list-style:none; margin:0; padding:0}
 
   <h2>2. La privacy: non tutto si dice</h2>
   <p>La <b class="kw" data-t="privacy">privacy</b> è il diritto di decidere chi può vedere i tuoi dati. Online lasciamo tracce: pensa bene prima di pubblicare indirizzo di casa, scuola, numero di telefono o foto.</p>
-  <div class="box warn"><div class="titolo">⚠️ Ricorda</div>Quello che metti online può restare per sempre e lo possono vedere anche persone che non conosci. Nel dubbio, <b>non pubblicarlo</b>.</div>
+  <div class="box warn"><div class="titolo"><iconify-icon icon="ph:warning-duotone"></iconify-icon> Ricorda</div>Quello che metti online può restare per sempre e lo possono vedere anche persone che non conosci. Nel dubbio, <b>non pubblicarlo</b>.</div>
 
   <h2>3. Attento alle trappole: il phishing</h2>
   <p>Il <b class="kw" data-t="phishing">phishing</b> è un inganno: un messaggio o un sito finto che imita uno vero (la banca, le Poste, lo Stato) per farti dare password o dati. Ecco come smascherarlo:</p>
   <div class="grid2">
-    <div class="card"><h3>🔎 Controlla l'indirizzo</h3><p>I siti ufficiali dello Stato finiscono in <b>.gov.it</b> o <b>.it</b>. Diffida di indirizzi strani, con errori o parole come "premio-gratis".</p></div>
-    <div class="card"><h3>🔒 Cerca il lucchetto</h3><p>Un sito protetto inizia con <b class="kw" data-t="https">https</b> e mostra un lucchetto. Attento però: il lucchetto da solo non basta, conta anche l'indirizzo giusto.</p></div>
-    <div class="card"><h3>⏰ Diffida della fretta</h3><p>«Paga subito o perdi tutto!» Le truffe ti mettono ansia per farti sbagliare. Gli enti veri non minacciano così.</p></div>
-    <div class="card"><h3>🎁 Se è troppo bello…</h3><p>Hai «vinto» un telefono senza aver fatto niente? È una trappola per rubarti i dati. Non ci cascare.</p></div>
+    <div class="card"><h3><iconify-icon icon="ph:magnifying-glass-duotone"></iconify-icon> Controlla l'indirizzo</h3><p>I siti ufficiali dello Stato finiscono in <b>.gov.it</b> o <b>.it</b>. Diffida di indirizzi strani, con errori o parole come "premio-gratis".</p></div>
+    <div class="card"><h3><iconify-icon icon="ph:lock-duotone"></iconify-icon> Cerca il lucchetto</h3><p>Un sito protetto inizia con <b class="kw" data-t="https">https</b> e mostra un lucchetto. Attento però: il lucchetto da solo non basta, conta anche l'indirizzo giusto.</p></div>
+    <div class="card"><h3><iconify-icon icon="ph:clock-duotone"></iconify-icon> Diffida della fretta</h3><p>«Paga subito o perdi tutto!» Le truffe ti mettono ansia per farti sbagliare. Gli enti veri non minacciano così.</p></div>
+    <div class="card"><h3><iconify-icon icon="ph:gift-duotone"></iconify-icon> Se è troppo bello…</h3><p>Hai «vinto» un telefono senza aver fatto niente? È una trappola per rubarti i dati. Non ci cascare.</p></div>
   </div>
 
   <h2>🎮 Gioco: sito vero o trappola?</h2>
@@ -741,7 +846,7 @@ ul.ord{list-style:none; margin:0; padding:0}
     <div id="phishGame"></div>
   </div>
 
-  <div class="box ok"><div class="titolo">🆘 Se sbagli o hai un dubbio</div>Niente panico: parlane subito con un <b>adulto di fiducia</b> (genitori, insegnanti). Cambiare una password o chiedere aiuto in tempo risolve quasi sempre il problema.</div>
+  <div class="box ok"><div class="titolo"><iconify-icon icon="ph:lifebuoy-duotone"></iconify-icon> Se sbagli o hai un dubbio</div>Niente panico: parlane subito con un <b>adulto di fiducia</b> (genitori, insegnanti). Cambiare una password o chiedere aiuto in tempo risolve quasi sempre il problema.</div>
 
   <div class="verifica-mount" data-sez="sicurezza"></div>
   <div class="next"><button class="btn" data-go="situazioni">Avanti → Situazioni reali</button></div>
@@ -768,7 +873,7 @@ ul.ord{list-style:none; margin:0; padding:0}
     </div>
   </div>
   <div class="box bad">
-    <div class="titolo">🚫 Il rischio: il "divario digitale"</div>
+    <div class="titolo"><iconify-icon icon="ph:warning-octagon-duotone"></iconify-icon> Il rischio: il "divario digitale"</div>
     Quando un servizio esiste <b>solo</b> online, chi non sa usarlo resta tagliato fuori: si chiama <b class="kw" data-t="divariodigitale">divario digitale</b>. Per questo lo Stato tiene aperti anche gli sportelli e nascono i punti di aiuto.
   </div>
 
@@ -776,32 +881,32 @@ ul.ord{list-style:none; margin:0; padding:0}
   <p>Anche nell'era digitale, questi luoghi restano un punto di riferimento, soprattutto per chi ha bisogno di aiuto:</p>
   <div class="sportelli">
     <div class="sport">
-      <div class="h"><span class="e">🏛️</span> Il Comune (URP / Anagrafe)</div>
+      <div class="h"><iconify-icon class="e" icon="ph:bank-duotone"></iconify-icon> Il Comune (URP / Anagrafe)</div>
       <ul><li>Carta d'identità</li><li>Certificati di nascita e residenza</li><li>Cambio di indirizzo</li></ul>
     </div>
     <div class="sport">
-      <div class="h"><span class="e">📮</span> L'ufficio postale</div>
+      <div class="h"><iconify-icon class="e" icon="ph:mailbox-duotone"></iconify-icon> L'ufficio postale</div>
       <ul><li>Spedire lettere e pacchi</li><li>Pagare bollettini</li><li>Ritirare la pensione</li><li>Richiedere il passaporto</li></ul>
     </div>
     <div class="sport">
-      <div class="h"><span class="e">🏥</span> ASL / Sanità</div>
+      <div class="h"><iconify-icon class="e" icon="ph:first-aid-kit-duotone"></iconify-icon> ASL / Sanità</div>
       <ul><li>Scegliere il medico di famiglia</li><li>Prenotare visite ed esami</li><li>Tessera sanitaria</li></ul>
     </div>
     <div class="sport">
-      <div class="h"><span class="e">💶</span> Agenzia delle Entrate</div>
+      <div class="h"><iconify-icon class="e" icon="ph:currency-eur-duotone"></iconify-icon> Agenzia delle Entrate</div>
       <ul><li>Codice fiscale e tessera</li><li>Tasse e rimborsi</li><li>Dati della casa</li></ul>
     </div>
     <div class="sport">
-      <div class="h"><span class="e">🧓</span> Patronato / CAF</div>
+      <div class="h"><iconify-icon class="e" icon="ph:user-duotone"></iconify-icon> Patronato / CAF</div>
       <ul><li>Aiuto a compilare le domande</li><li>Pensioni e bonus</li><li>Aiuto con SPID e identità digitale</li></ul>
     </div>
     <div class="sport">
-      <div class="h"><span class="e">🏦</span> La banca / Posta</div>
+      <div class="h"><iconify-icon class="e" icon="ph:buildings-duotone"></iconify-icon> La banca / Posta</div>
       <ul><li>Aprire un conto</li><li>Gestire i risparmi</li><li>Carte e pagamenti</li></ul>
     </div>
   </div>
   <div class="box ok">
-    <div class="titolo">🌟 La cittadinanza digitale fatta bene</div>
+    <div class="titolo"><iconify-icon icon="ph:star-duotone"></iconify-icon> La cittadinanza digitale fatta bene</div>
     Un bravo cittadino digitale usa gli strumenti online <b>quando convengono</b>, sa tenere al sicuro la propria identità, e dà una mano a chi è in difficoltà (i nonni!). Il digitale è un aiuto in più, non un muro.
   </div>
   <div class="verifica-mount" data-sez="situazioni"></div>
@@ -816,49 +921,49 @@ ul.ord{list-style:none; margin:0; padding:0}
 <!-- ============ MODAL GLOSSARIO ============ -->
 <div class="overlay" id="overlay" onclick="if(event.target===this)chiudiModal()">
   <div class="modal">
-    <div class="mt"><span class="em" id="m-em">📘</span><h4 id="m-titolo"></h4></div>
+    <div class="mt"><span class="em" id="m-em"><iconify-icon icon="ph:book-open-duotone"></iconify-icon></span><h4 id="m-titolo"></h4></div>
     <div class="def" id="m-def"></div>
     <div class="es" id="m-es"></div>
-    <button class="btn chiudi" onclick="chiudiModal()">Ho capito 👍</button>
+    <button class="btn chiudi" onclick="chiudiModal()">Ho capito <iconify-icon icon="ph:thumbs-up-duotone"></iconify-icon></button>
   </div>
 </div>
 
 <script>
 /* ============ GLOSSARIO ============ */
 const glossario = {
-  servizipubblici:{em:"🏛️",t:"Servizi pubblici",d:"Sono i servizi offerti dallo Stato a tutti i cittadini, pagati con le tasse di tutti.",e:"La scuola, l'ospedale, gli autobus e la raccolta dei rifiuti sono servizi pubblici."},
-  cittadinanzadigitale:{em:"🌐",t:"Cittadinanza digitale",d:"È la capacità di usare in modo corretto e sicuro Internet e i servizi online per esercitare i propri diritti e doveri.",e:"Prenotare una visita medica dal sito dell'ospedale, invece di andare allo sportello."},
-  identitadigitale:{em:"🔐",t:"Identità digitale",d:"È l'insieme dei dati che dimostrano chi sei quando usi Internet. Funziona come la carta d'identità, ma online.",e:"Quando entri in un sito dello Stato con SPID o CIE, stai usando la tua identità digitale."},
-  evidenziata:{em:"💡",t:"Parole cliccabili",d:"In questa app le parole importanti sono scritte in blu: cliccandole si apre una spiegazione come questa.",e:"Hai appena cliccato una di queste parole. Provane altre nelle pagine!"},
-  identita:{em:"🪪",t:"Identità",d:"È l'insieme delle caratteristiche che ti rendono una persona unica e diversa da tutte le altre.",e:"Il tuo nome, il viso, la data di nascita e il codice fiscale fanno parte della tua identità."},
-  datipersonali:{em:"📋",t:"Dati personali",d:"Sono tutte le informazioni che riguardano una persona e permettono di riconoscerla.",e:"Nome, indirizzo, numero di telefono e foto sono dati personali: vanno protetti."},
-  codicefiscale:{em:"🔢",t:"Codice fiscale",d:"Un codice di 16 lettere e numeri che lo Stato dà a ogni persona per riconoscerla senza errori.",e:"Anche tu ce l'hai: è scritto sulla tessera sanitaria che hai in casa."},
-  documento:{em:"🪪",t:"Documento d'identità",d:"Una carta ufficiale, con foto e dati, che dimostra chi sei.",e:"La carta d'identità e il passaporto sono documenti d'identità."},
-  tesserasanitaria:{em:"💊",t:"Tessera sanitaria",d:"La carta che ti collega al Servizio Sanitario: sopra c'è il tuo codice fiscale.",e:"La mostri dal medico o in farmacia per avere le cure e le medicine."},
-  pubblicaamministrazione:{em:"🏛️",t:"Pubblica Amministrazione",d:"L'insieme degli uffici dello Stato che lavorano per i cittadini.",e:"Il Comune, la scuola, l'INPS e l'Agenzia delle Entrate fanno parte della PA."},
-  cartaidentita:{em:"💳",t:"Carta d'identità",d:"Il documento principale che dimostra chi sei, con foto, nome e data di nascita.",e:"La usi per salire su un aereo o per iscriverti a un'attività."},
-  furtoidentita:{em:"🎭",t:"Furto d'identità",d:"Quando qualcuno usa i tuoi dati fingendo di essere te, per ingannare gli altri.",e:"Un ladro con la foto della tua carta potrebbe aprire un abbonamento a tuo nome."},
-  biometria:{em:"🧬",t:"Dati biometrici",d:"Sono dati che riguardano il tuo corpo e sono unici per ogni persona.",e:"L'impronta del dito che sblocca il telefono è un dato biometrico."},
-  riconoscimentofacciale:{em:"😀",t:"Riconoscimento facciale",d:"Una tecnologia che riconosce una persona misurando la forma del suo viso.",e:"Quando guardi lo smartphone e si sblocca da solo, sta usando il riconoscimento facciale."},
-  accessosicuro:{em:"🔒",t:"Accesso sicuro",d:"Entrare in un luogo o in un sito solo dopo aver dimostrato di esserne autorizzati.",e:"Lo scanner dell'impronta all'ingresso di un ufficio garantisce un accesso sicuro."},
-  scanner:{em:"📡",t:"Scanner",d:"Un apparecchio che 'legge' qualcosa (un'impronta, un volto, un codice) e lo trasforma in dati.",e:"Lo scanner del supermercato legge il codice a barre dei prodotti."},
-  spid:{em:"🆔",t:"SPID",d:"Sistema Pubblico di Identità Digitale: un nome utente e una password unici per entrare in tutti i siti pubblici.",e:"Con un solo SPID entri nel sito della scuola, dell'INPS e del Comune."},
-  cie:{em:"💳",t:"CIE — Carta d'Identità Elettronica",d:"La carta d'identità con un microchip dentro, che funziona anche come chiave digitale.",e:"Avvicinandola allo smartphone, la CIE ti fa entrare nei siti dello Stato."},
-  qrcode:{em:"▦",t:"Codice QR",d:"Un quadrato di puntini bianchi e neri che nasconde un'informazione, letta dalla fotocamera.",e:"Inquadri il QR del menù al ristorante e si apre la lista dei piatti."},
-  codicebinario:{em:"0️⃣",t:"Informazione a quadratini",d:"Il QR memorizza i dati usando tanti piccoli quadrati: nero o bianco, come acceso o spento.",e:"Più quadratini ci sono, più informazioni il codice può contenere."},
-  codiceabarre:{em:"|||",t:"Codice a barre",d:"Le righe verticali nere sui prodotti: contengono un numero che identifica l'oggetto.",e:"Alla cassa lo scanner legge il codice a barre e trova il prezzo."},
-  cieid:{em:"📱",t:"CieID",d:"L'app ufficiale che usa la tua Carta d'Identità Elettronica per farti entrare nei siti pubblici.",e:"Apri CieID, inquadri il QR del sito e avvicini la carta: sei dentro."},
-  competenzedigitali:{em:"🧠",t:"Competenze digitali",d:"Le capacità di usare bene e in sicurezza computer, smartphone e Internet.",e:"Saper riconoscere un sito ufficiale da uno falso è una competenza digitale."},
-  divariodigitale:{em:"↔️",t:"Divario digitale",d:"La distanza tra chi sa usare il digitale e chi no, che rischia di restare escluso dai servizi.",e:"Un anziano senza smartphone non riesce a prenotare online: è vittima del divario digitale."},
-  truffaonline:{em:"🪤",t:"Trappola online",d:"Un inganno su Internet costruito per rubarti dati, password o soldi.",e:"Un finto messaggio delle Poste che ti chiede di pagare per sbloccare un pacco."},
-  password:{em:"🔑",t:"Password",d:"La parola segreta che dimostra che un account è davvero tuo. Va tenuta nascosta.",e:"Per entrare nella tua email scrivi la password: se è forte, nessuno entra al posto tuo."},
-  privacy:{em:"🙈",t:"Privacy",d:"Il diritto di decidere chi può vedere e usare i tuoi dati personali.",e:"Non pubblicare online il tuo indirizzo di casa: è una scelta di privacy."},
-  phishing:{em:"🎣",t:"Phishing",d:"Una truffa che usa messaggi o siti finti, copiati da quelli veri, per 'pescare' i tuoi dati.",e:"Un'email che sembra della banca ma ti porta a un sito falso per rubarti la password."},
-  https:{em:"🔒",t:"https",d:"Le lettere all'inizio dell'indirizzo di un sito protetto: i dati viaggiano in modo cifrato.",e:"Prima di inserire dati, controlla che ci sia 'https' e il lucchetto nell'indirizzo."}
+  servizipubblici:{em:"bank",t:"Servizi pubblici",d:"Sono i servizi offerti dallo Stato a tutti i cittadini, pagati con le tasse di tutti.",e:"La scuola, l'ospedale, gli autobus e la raccolta dei rifiuti sono servizi pubblici."},
+  cittadinanzadigitale:{em:"globe-hemisphere-west",t:"Cittadinanza digitale",d:"È la capacità di usare in modo corretto e sicuro Internet e i servizi online per esercitare i propri diritti e doveri.",e:"Prenotare una visita medica dal sito dell'ospedale, invece di andare allo sportello."},
+  identitadigitale:{em:"lock-key",t:"Identità digitale",d:"È l'insieme dei dati che dimostrano chi sei quando usi Internet. Funziona come la carta d'identità, ma online.",e:"Quando entri in un sito dello Stato con SPID o CIE, stai usando la tua identità digitale."},
+  evidenziata:{em:"lightbulb",t:"Parole cliccabili",d:"In questa app le parole importanti sono scritte in blu: cliccandole si apre una spiegazione come questa.",e:"Hai appena cliccato una di queste parole. Provane altre nelle pagine!"},
+  identita:{em:"identification-card",t:"Identità",d:"È l'insieme delle caratteristiche che ti rendono una persona unica e diversa da tutte le altre.",e:"Il tuo nome, il viso, la data di nascita e il codice fiscale fanno parte della tua identità."},
+  datipersonali:{em:"clipboard-text",t:"Dati personali",d:"Sono tutte le informazioni che riguardano una persona e permettono di riconoscerla.",e:"Nome, indirizzo, numero di telefono e foto sono dati personali: vanno protetti."},
+  codicefiscale:{em:"barcode",t:"Codice fiscale",d:"Un codice di 16 lettere e numeri che lo Stato dà a ogni persona per riconoscerla senza errori.",e:"Anche tu ce l'hai: è scritto sulla tessera sanitaria che hai in casa."},
+  documento:{em:"identification-card",t:"Documento d'identità",d:"Una carta ufficiale, con foto e dati, che dimostra chi sei.",e:"La carta d'identità e il passaporto sono documenti d'identità."},
+  tesserasanitaria:{em:"pill",t:"Tessera sanitaria",d:"La carta che ti collega al Servizio Sanitario: sopra c'è il tuo codice fiscale.",e:"La mostri dal medico o in farmacia per avere le cure e le medicine."},
+  pubblicaamministrazione:{em:"bank",t:"Pubblica Amministrazione",d:"L'insieme degli uffici dello Stato che lavorano per i cittadini.",e:"Il Comune, la scuola, l'INPS e l'Agenzia delle Entrate fanno parte della PA."},
+  cartaidentita:{em:"identification-card",t:"Carta d'identità",d:"Il documento principale che dimostra chi sei, con foto, nome e data di nascita.",e:"La usi per salire su un aereo o per iscriverti a un'attività."},
+  furtoidentita:{em:"mask-happy",t:"Furto d'identità",d:"Quando qualcuno usa i tuoi dati fingendo di essere te, per ingannare gli altri.",e:"Un ladro con la foto della tua carta potrebbe aprire un abbonamento a tuo nome."},
+  biometria:{em:"dna",t:"Dati biometrici",d:"Sono dati che riguardano il tuo corpo e sono unici per ogni persona.",e:"L'impronta del dito che sblocca il telefono è un dato biometrico."},
+  riconoscimentofacciale:{em:"smiley",t:"Riconoscimento facciale",d:"Una tecnologia che riconosce una persona misurando la forma del suo viso.",e:"Quando guardi lo smartphone e si sblocca da solo, sta usando il riconoscimento facciale."},
+  accessosicuro:{em:"lock",t:"Accesso sicuro",d:"Entrare in un luogo o in un sito solo dopo aver dimostrato di esserne autorizzati.",e:"Lo scanner dell'impronta all'ingresso di un ufficio garantisce un accesso sicuro."},
+  scanner:{em:"scan",t:"Scanner",d:"Un apparecchio che 'legge' qualcosa (un'impronta, un volto, un codice) e lo trasforma in dati.",e:"Lo scanner del supermercato legge il codice a barre dei prodotti."},
+  spid:{em:"identification-badge",t:"SPID",d:"Sistema Pubblico di Identità Digitale: un nome utente e una password unici per entrare in tutti i siti pubblici.",e:"Con un solo SPID entri nel sito della scuola, dell'INPS e del Comune."},
+  cie:{em:"identification-card",t:"CIE — Carta d'Identità Elettronica",d:"La carta d'identità con un microchip dentro, che funziona anche come chiave digitale.",e:"Avvicinandola allo smartphone, la CIE ti fa entrare nei siti dello Stato."},
+  qrcode:{em:"qr-code",t:"Codice QR",d:"Un quadrato di puntini bianchi e neri che nasconde un'informazione, letta dalla fotocamera.",e:"Inquadri il QR del menù al ristorante e si apre la lista dei piatti."},
+  codicebinario:{em:"binary",t:"Informazione a quadratini",d:"Il QR memorizza i dati usando tanti piccoli quadrati: nero o bianco, come acceso o spento.",e:"Più quadratini ci sono, più informazioni il codice può contenere."},
+  codiceabarre:{em:"barcode",t:"Codice a barre",d:"Le righe verticali nere sui prodotti: contengono un numero che identifica l'oggetto.",e:"Alla cassa lo scanner legge il codice a barre e trova il prezzo."},
+  cieid:{em:"device-mobile-camera",t:"CieID",d:"L'app ufficiale che usa la tua Carta d'Identità Elettronica per farti entrare nei siti pubblici.",e:"Apri CieID, inquadri il QR del sito e avvicini la carta: sei dentro."},
+  competenzedigitali:{em:"brain",t:"Competenze digitali",d:"Le capacità di usare bene e in sicurezza computer, smartphone e Internet.",e:"Saper riconoscere un sito ufficiale da uno falso è una competenza digitale."},
+  divariodigitale:{em:"arrows-left-right",t:"Divario digitale",d:"La distanza tra chi sa usare il digitale e chi no, che rischia di restare escluso dai servizi.",e:"Un anziano senza smartphone non riesce a prenotare online: è vittima del divario digitale."},
+  truffaonline:{em:"warning",t:"Trappola online",d:"Un inganno su Internet costruito per rubarti dati, password o soldi.",e:"Un finto messaggio delle Poste che ti chiede di pagare per sbloccare un pacco."},
+  password:{em:"key",t:"Password",d:"La parola segreta che dimostra che un account è davvero tuo. Va tenuta nascosta.",e:"Per entrare nella tua email scrivi la password: se è forte, nessuno entra al posto tuo."},
+  privacy:{em:"eye-slash",t:"Privacy",d:"Il diritto di decidere chi può vedere e usare i tuoi dati personali.",e:"Non pubblicare online il tuo indirizzo di casa: è una scelta di privacy."},
+  phishing:{em:"fish",t:"Phishing",d:"Una truffa che usa messaggi o siti finti, copiati da quelli veri, per 'pescare' i tuoi dati.",e:"Un'email che sembra della banca ma ti porta a un sito falso per rubarti la password."},
+  https:{em:"lock",t:"https",d:"Le lettere all'inizio dell'indirizzo di un sito protetto: i dati viaggiano in modo cifrato.",e:"Prima di inserire dati, controlla che ci sia 'https' e il lucchetto nell'indirizzo."}
 };
 function apriModal(key){
   const g = glossario[key]; if(!g) return;
-  document.getElementById('m-em').textContent = g.em;
+  document.getElementById('m-em').innerHTML = '<iconify-icon icon="ph:'+g.em+'-duotone"></iconify-icon>';
   document.getElementById('m-titolo').textContent = g.t;
   document.getElementById('m-def').textContent = g.d;
   document.getElementById('m-es').innerHTML = '<b>Esempio:</b> ' + g.e;
@@ -923,7 +1028,7 @@ function controllaDati(){
   });
   const ok = giusti===datiQuiz.length;
   document.getElementById('dati-esito').innerHTML =
-    `<div class="box ${ok?'ok':'warn'}"><div class="titolo">${ok?'🎉 Perfetto!':'🔎 Quasi!'}</div>
+    `<div class="box ${ok?'ok':'warn'}"><div class="titolo">${ok?'<iconify-icon icon="ph:confetti-duotone"></iconify-icon> Perfetto!':'<iconify-icon icon="ph:magnifying-glass-duotone"></iconify-icon> Quasi!'}</div>
      ${ok?'Hai scelto proprio i dati che identificano una persona con certezza.':'I dati che identificano davvero sono quelli unici: codice fiscale, impronta, numero della carta, oppure nome+cognome+data di nascita insieme. Il colore o il cibo preferito li hanno in tanti!'}</div>`;
 }
 function resetDati(){ buildDati(); document.getElementById('dati-esito').innerHTML=''; }
@@ -1121,8 +1226,8 @@ function mostraPhish(){
   g.innerHTML=`<div class="phish-prog">Situazione ${phishI+1} di ${phishDati.length} &nbsp;·&nbsp; punti: ${phishOk}</div>
     <div class="phish-q">${d.sit}</div>
     <div class="phish-btns">
-      <button class="btn" onclick="phishRisp(true)">✅ Mi fido</button>
-      <button class="btn blu" onclick="phishRisp(false)">🚫 È una trappola</button>
+      <button class="btn" onclick="phishRisp(true)"><iconify-icon icon="ph:check-circle-duotone"></iconify-icon> Mi fido</button>
+      <button class="btn blu" onclick="phishRisp(false)"><iconify-icon icon="ph:prohibit-duotone"></iconify-icon> È una trappola</button>
     </div>
     <div class="phish-fb" id="phishFb"></div>`;
 }
